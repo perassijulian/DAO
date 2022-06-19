@@ -1,3 +1,5 @@
+const { run } = require("hardhat");
+
 const verify = async (address, constructorArgsParams) => {
   try {
     await run("verify:verify", {
