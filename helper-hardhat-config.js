@@ -8,4 +8,6 @@ const networkConfig = {
   },
 };
 
-module.exports = { networkConfig };
+const MIN_DELAY = 3600; //1hr
+
+module.exports = { networkConfig, MIN_DELAY };

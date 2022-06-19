@@ -16,6 +16,8 @@ module.exports = {
       accounts: [PRIVATE_KEY],
       chainId: 4,
     },
+    localhost: { chainId: 31337 },
+    hardhat: { chainId: 31337 },
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
