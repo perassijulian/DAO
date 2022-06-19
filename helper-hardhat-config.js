@@ -9,5 +9,14 @@ const networkConfig = {
 };
 
 const MIN_DELAY = 3600; //1hr
+const VOTING_PERIOD = 5; //5blocks
+const VOTING_DELAY = 1; //1block
+const QUORUM_PERCENTAGE = 4; //4%
 
-module.exports = { networkConfig, MIN_DELAY };
+module.exports = {
+  networkConfig,
+  MIN_DELAY,
+  VOTING_DELAY,
+  VOTING_PERIOD,
+  QUORUM_PERCENTAGE,
+};

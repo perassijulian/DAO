@@ -12,7 +12,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   log("Deploying timelock contract...");
   const timeLockContract = await deploy("TimeLock", {
     from: deployer,
-    args: [MIN_DELAY, [deployer], [deployer]],
+    args: [MIN_DELAY, [], []],
     log: true,
     waitConfirmations: networkConfig[chainId].blockConfirmations || 1,
   });
