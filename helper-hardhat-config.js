@@ -12,6 +12,7 @@ const MIN_DELAY = 3600; //1hr
 const VOTING_PERIOD = 5; //5blocks
 const VOTING_DELAY = 1; //1block
 const QUORUM_PERCENTAGE = 4; //4%
+const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
 
 module.exports = {
   networkConfig,
@@ -19,4 +20,5 @@ module.exports = {
   VOTING_DELAY,
   VOTING_PERIOD,
   QUORUM_PERCENTAGE,
+  ADDRESS_ZERO,
 };
