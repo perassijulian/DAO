@@ -9,23 +9,23 @@ const {
 const { advanceBlocks } = require("../utils/pass-blocks");
 const fs = require("fs");
 
-const propose = async () => {
+const propose = async (functionToCall, args, description) => {
   const projectsContract = await ethers.getContract("Projects");
   const governorContract = await ethers.getContract("GovernorContract");
 
   const calldataEncoded = projectsContract.interface.encodeFunctionData(
-    PROJECT_FUNCTION,
-    [PROJECT_ARG]
+    functionToCall,
+    [args]
   );
 
-  console.log(`Propose: ${PROJECT_DESCRIPTION}`);
-  console.log(`To function ${PROJECT_FUNCTION} with args ${PROJECT_ARG}`);
+  console.log(`Propose: ${description}`);
+  console.log(`To function ${functionToCall} with args ${args}`);
 
   const tx = await governorContract.propose(
     [projectsContract.address],
     [0],
     [calldataEncoded],
-    PROJECT_DESCRIPTION
+    description
   );
   const txReceipt = await tx.wait(1);
   console.log("Proposal made!");
@@ -49,7 +49,7 @@ const propose = async () => {
   fs.writeFileSync("./proposals.json", JSON.stringify(proposalsJson));
 };
 
-propose(PROJECT_DESCRIPTION)
+propose(PROJECT_FUNCTION, PROJECT_ARG, PROJECT_DESCRIPTION)
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
