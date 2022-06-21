@@ -1,5 +1,5 @@
 const { expect, assert } = require("chai");
-const { ethers, deployments } = require("hardhat");
+const { ethers, deployments, network } = require("hardhat");
 const {
   PROJECT_ARG,
   PROJECT_DESCRIPTION,
@@ -94,5 +94,73 @@ describe("Governance actions", async () => {
     const executeEvent = executeReceipt.events[0].event;
     assert.equal(executeEvent, "ProposalExecuted");
     console.log("Execute proposal ✔️");
+
+    const res = await projects.getProjects();
+    assert.equal(res[0], PROJECT_ARG);
+    console.log("Contract updated ✔️");
+  });
+
+  it("Should revert when not enought time has passed", async () => {
+    let blockNr;
+
+    const calldataHash = projects.interface.encodeFunctionData(
+      PROJECT_FUNCTION,
+      [PROJECT_ARG]
+    );
+    const descriptionHash = ethers.utils.id(PROJECT_DESCRIPTION);
+
+    //create proposal
+    const proposeTx = await governor.propose(
+      [projects.address],
+      [0],
+      [calldataHash],
+      PROJECT_DESCRIPTION
+    );
+    const proposeReceipt = await proposeTx.wait(1);
+    const { proposalId } = proposeReceipt.events[0].args;
+
+    //voting on proposal
+    await advanceBlocks(VOTING_DELAY - 1);
+    await expect(governor.castVote(proposalId, 1)).to.be.revertedWith(
+      "Governor: vote not currently active"
+    );
+    await advanceBlocks(1);
+    const voteTx = await governor.castVote(proposalId, 1);
+    await voteTx.wait(1);
+
+    //queueing proposal
+    blockNr = await ethers.provider.getBlockNumber();
+    const deadline = await governor.proposalDeadline(proposalId);
+    await advanceBlocks(deadline - blockNr - 1);
+    await expect(
+      governor.queue([projects.address], [0], [calldataHash], descriptionHash)
+    ).to.be.revertedWith("Governor: proposal not successful");
+    await advanceBlocks(1);
+    const queueTx = await governor.queue(
+      [projects.address],
+      [0],
+      [calldataHash],
+      descriptionHash
+    );
+    await queueTx.wait(1);
+
+    //executing proposal
+    await advanceTime(MIN_DELAY - 1);
+    await expect(
+      governor.execute([projects.address], [0], [calldataHash], descriptionHash)
+    ).to.be.revertedWith("TimelockController: operation is not ready");
+    await advanceTime(1);
+    const executeTx = await governor.execute(
+      [projects.address],
+      [0],
+      [calldataHash],
+      descriptionHash
+    );
+    const executeReceipt = await executeTx.wait(1);
+    const executeEvent = executeReceipt.events[0].event;
+    assert.equal(executeEvent, "ProposalExecuted");
+
+    const res = await projects.getProjects();
+    assert.equal(res[0], PROJECT_ARG);
   });
 });
