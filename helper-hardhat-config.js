@@ -10,15 +10,15 @@ const networkConfig = {
 
 const developmentChains = ["hardhat", "localhost"]
 
-const MIN_DELAY = 3600; //1hr
-const VOTING_PERIOD = 5; //5blocks
-const VOTING_DELAY = 1; //1block
+const MIN_DELAY = 3600; //1hr => between proposal queued and being able to execute it
+const VOTING_PERIOD = 5; //5blocks => between proposal able to vote and finish voting
+const VOTING_DELAY = 1; //1block => between propose and voting
 const QUORUM_PERCENTAGE = 4; //4%
 const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
 
-const PROJECT_DESCRIPTION = "Second proposal description";
+const PROJECT_DESCRIPTION = "First proposal description";
 const PROJECT_FUNCTION = "addProject";
-const PROJECT_ARG = "Make even more bridges";
+const PROJECT_ARG = "Make more bridges";
 
 module.exports = {
   networkConfig,
