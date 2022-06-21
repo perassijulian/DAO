@@ -38,3 +38,5 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log("Contract verified.");
   }
 };
+
+module.exports.tags = ["all", "governor"];

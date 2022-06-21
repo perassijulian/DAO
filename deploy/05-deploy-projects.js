@@ -35,3 +35,5 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   await tx.wait(1);
   log("Ownership transfered.");
 };
+
+module.exports.tags = ["all", "projects"];

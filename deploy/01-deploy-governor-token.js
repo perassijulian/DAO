@@ -26,10 +26,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   log("-----------------------------------------------------------");
   log("Delegating voting power to deployer...");
-  await delegate(governanceToken.address, deployer)
+  await delegate(governanceToken.address, deployer);
   log("Voting power delegated.");
-
-
 };
 
 const delegate = async (contractAddress, delegatee) => {
@@ -41,5 +39,7 @@ const delegate = async (contractAddress, delegatee) => {
   await tx.wait(1);
 
   const checkpointNr = await governanceToken.numCheckpoints(delegatee);
-  console.log(`Checkpoint nr: ${checkpointNr}`)
+  console.log(`Checkpoint nr: ${checkpointNr}`);
 };
+
+module.exports.tags = ["all", "governortoken"];

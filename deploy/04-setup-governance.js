@@ -1,13 +1,14 @@
 const { ethers } = require("hardhat");
-const {
-  ADDRESS_ZERO,
-} = require("../helper-hardhat-config");
+const { ADDRESS_ZERO } = require("../helper-hardhat-config");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { log, get } = deployments;
   const { deployer } = await getNamedAccounts();
   const timeLock = await ethers.getContract("TimeLock", deployer);
-  const governorContract = await ethers.getContract("GovernorContract", deployer);
+  const governorContract = await ethers.getContract(
+    "GovernorContract",
+    deployer
+  );
 
   log("----------------------------------------------------");
   log("Setting up governance roles...");
@@ -16,7 +17,10 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const executorRole = await timeLock.EXECUTOR_ROLE();
   const adminRole = await timeLock.TIMELOCK_ADMIN_ROLE();
 
-  const txProposer = await timeLock.grantRole(proposerRole, governorContract.address);
+  const txProposer = await timeLock.grantRole(
+    proposerRole,
+    governorContract.address
+  );
   await txProposer.wait(1);
   log("Proposer role changed");
   const txExecutor = await timeLock.grantRole(executorRole, ADDRESS_ZERO);
@@ -26,3 +30,5 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   await txAdmin.wait(1);
   log("Admin role revoked");
 };
+
+module.exports.tags = ["all", "setup"];
