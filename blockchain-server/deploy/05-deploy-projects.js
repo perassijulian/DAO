@@ -1,6 +1,11 @@
 const { network, ethers } = require("hardhat");
-const { networkConfig } = require("../helper-hardhat-config");
+const {
+  networkConfig,
+  frontEndAddresses,
+} = require("../helper-hardhat-config");
 const { verify } = require("../helper-functions");
+const fs = require("fs");
+require("dotenv").config();
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, log } = deployments;
@@ -17,14 +22,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   });
   log(`Projects deployed at ${projectsDeploy.address}.`);
 
-  if (chainId !== 31337 && process.env.ETHERSCAN_API_KEY) {
-    log("-----------------------------------------------------------");
-    log("Verifying contract...");
-    await verify(projectsDeploy.address, []);
-    log("Contract verified.");
-  }
-
-  log("----------------------------------------------------");
+  log("------------------------------");
   log("Transfering ownership to timelock...");
   const projectsContract = await ethers.getContractAt(
     "Projects",
@@ -34,6 +32,23 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const tx = await projectsContract.transferOwnership(timeLockContract.address);
   await tx.wait(1);
   log("Ownership transfered.");
+
+  if (chainId !== 31337 && process.env.ETHERSCAN_API_KEY) {
+    log("------------------------------");
+    log("Verifying contract...");
+    await verify(projectsDeploy.address, []);
+    log("Contract verified.");
+  }
+
+  if (process.env.UPDATE_FRONT) {
+    log("------------------------------");
+    log("Updating front end addresses...");
+    const chainId = network.config.chainId.toString();
+    const addresses = JSON.parse(fs.readFileSync(frontEndAddresses, "utf-8"));
+    addresses[chainId]["projects"] = projectsContract.address;
+    fs.writeFileSync(frontEndAddresses, JSON.stringify(addresses));
+    log("Front end addresses updated.");
+  }
 };
 
 module.exports.tags = ["all", "projects"];

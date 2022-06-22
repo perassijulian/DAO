@@ -4,9 +4,11 @@ const {
   VOTING_DELAY,
   VOTING_PERIOD,
   QUORUM_PERCENTAGE,
+  frontEndAddresses,
 } = require("../helper-hardhat-config");
-
-const { verify } = "../helper-functions";
+const fs = require("fs");
+require("dotenv").config();
+const { verify } = require("../helper-functions");
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { log, deploy, get } = deployments;
@@ -31,11 +33,27 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   });
   log(`Governor contract deployed to ${governorContract.address}`);
 
-  if (chainId !== 31337) {
-    log("----------------------------------------------------");
+  if (chainId !== 31337 && process.env.ETHERSCAN_API_KEY) {
+    log("------------------------------");
     log("Verifying contract...");
-    await verify(governorContract);
+    await verify(governorContract.address, [
+      timeLock.address,
+      governanceToken.address,
+      VOTING_DELAY,
+      VOTING_PERIOD,
+      QUORUM_PERCENTAGE,
+    ]);
     log("Contract verified.");
+  }
+
+  if (process.env.UPDATE_FRONT) {
+    log("------------------------------");
+    log("Updating front end addresses...");
+    const chainId = network.config.chainId.toString();
+    const addresses = JSON.parse(fs.readFileSync(frontEndAddresses, "utf-8"));
+    addresses[chainId]["governor"] = governorContract.address;
+    fs.writeFileSync(frontEndAddresses, JSON.stringify(addresses));
+    log("Front end addresses updated.");
   }
 };
 
