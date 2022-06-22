@@ -46,11 +46,11 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log("Updating front end...");
     const chainId = network.config.chainId.toString();
     const addresses = JSON.parse(fs.readFileSync(frontEndAddresses, "utf-8"));
-    addresses[chainId]["projects"] = projectsContract.address;
+    addresses[chainId]["projects"] = projectsDeploy.address;
     fs.writeFileSync(frontEndAddresses, JSON.stringify(addresses));
 
     const abis = JSON.parse(fs.readFileSync(frontEndAbi, "utf-8"));
-    const abi = projectsContract.abi;
+    const abi = projectsDeploy.abi;
     abis["projects"] = abi;
     fs.writeFileSync(frontEndAbi, JSON.stringify(abis));
 
