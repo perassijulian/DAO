@@ -1,9 +1,6 @@
 import Link from "next/link";
-import { useMoralis } from "react-moralis";
 
 const Navbar = () => {
-  const { authenticate, isAuthenticated } = useMoralis();
-  console.log('isAuthenticated:', isAuthenticated);
   return (
     <div className="bg-red-500 w-full h-10 text-white p-1 flex justify-around items-center">
       <Link href="/">
@@ -18,15 +15,6 @@ const Navbar = () => {
         <Link href="/proposals/new">
           <a className="cursor-pointer hover:opacity-50 p-2">ADD</a>
         </Link>
-        {!isAuthenticated && (
-          <button
-            onClick={() => {
-              authenticate();
-            }}
-          >
-            CONNECT
-          </button>
-        )}
       </div>
     </div>
   );

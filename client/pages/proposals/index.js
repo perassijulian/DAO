@@ -1,7 +1,9 @@
 import Navbar from "../../components/Navbar";
 import ProposalsTable from "../../components/ProposalsTable";
+import { getContractSigned } from "../../utils/getContract";
 
 const proposals = () => {
+  const { provider, contract } = getContractSigned("holi");
   return (
     <div>
       <Navbar />
