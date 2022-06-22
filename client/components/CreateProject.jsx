@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TextArea, useNotification } from "web3uikit";
 import { ethers } from "ethers";
+import axios from "axios";
 import Web3Modal from "web3modal";
 import contractAddresses from "../contractAddresses.json";
 import contractAbi from "../contractAbi.json";
@@ -46,9 +47,6 @@ const CreateProject = () => {
     const projectsAddress = contractAddresses[chainId.toString()]["projects"];
     const projectsAbi = contractAbi["projects"];
 
-    console.log('projectsAddress:', projectsAddress);
-    console.log('projectsAbi:', projectsAbi);
-
     const projectsContract = new ethers.Contract(
       projectsAddress,
       projectsAbi,
@@ -59,12 +57,22 @@ const CreateProject = () => {
       "addProject",
       [project]
     );
-    const tx = await governorContract.propose([projectsAddress], [0], [calldataEncoded], project);
-    const receiptTx = await tx.wait(1)
-    const proposalId = receiptTx.events[0].args.proposalId.toString()
-    const idSliced = proposalId.slice(4)+"..."+proposalId.slice(-4)
+    const tx = await governorContract.propose(
+      [projectsAddress],
+      [0],
+      [calldataEncoded],
+      project
+    );
+    const receiptTx = await tx.wait(1);
+    const proposalId = receiptTx.events[0].args.proposalId.toString();
 
-    handleNewNotification("success", `You just made a new proposal with ID: ${idSliced}!`);
+    await axios.post("/api/proposalId", [proposalId]);
+    const idSliced = proposalId.slice(0, 4) + "..." + proposalId.slice(-4);
+
+    handleNewNotification(
+      "success",
+      `You just made a new proposal with ID: ${idSliced}!`
+    );
   };
 
   return (
