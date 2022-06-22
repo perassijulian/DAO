@@ -2,6 +2,7 @@ const { ethers, network } = require("hardhat");
 const {
   networkConfig,
   frontEndAddresses,
+  frontEndAbi,
 } = require("../helper-hardhat-config");
 const { verify } = require("../helper-functions");
 const fs = require("fs");
@@ -36,7 +37,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   if (process.env.UPDATE_FRONT) {
     log("------------------------------");
-    log("Updating front end addresses...");
+    log("Updating front end...");
     const chainId = network.config.chainId.toString();
     const addresses = JSON.parse(fs.readFileSync(frontEndAddresses, "utf-8"));
     if (Object.keys(addresses) === chainId) {
@@ -45,7 +46,12 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
       addresses[chainId] = { governorToken: governanceToken.address };
     }
     fs.writeFileSync(frontEndAddresses, JSON.stringify(addresses));
-    log("Front end addresses updated.");
+
+    const abi = governanceToken.abi;
+    const abiObject = { governorToken: abi };
+    fs.writeFileSync(frontEndAbi, JSON.stringify(abiObject));
+
+    log("Front end updated.");
   }
 };
 

@@ -10,6 +10,7 @@ const networkConfig = {
 
 const developmentChains = ["hardhat", "localhost"];
 const frontEndAddresses = "../client/contractAddresses.json";
+const frontEndAbi = "../client/contractAbi.json";
 
 const MIN_DELAY = 3600; //1hr => between proposal queued and being able to execute it
 const VOTING_PERIOD = 5; //5blocks => between proposal able to vote and finish voting
@@ -33,4 +34,5 @@ module.exports = {
   PROJECT_ARG,
   developmentChains,
   frontEndAddresses,
+  frontEndAbi
 };

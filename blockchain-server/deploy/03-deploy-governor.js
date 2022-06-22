@@ -5,6 +5,7 @@ const {
   VOTING_PERIOD,
   QUORUM_PERCENTAGE,
   frontEndAddresses,
+  frontEndAbi,
 } = require("../helper-hardhat-config");
 const fs = require("fs");
 require("dotenv").config();
@@ -48,12 +49,18 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   if (process.env.UPDATE_FRONT) {
     log("------------------------------");
-    log("Updating front end addresses...");
+    log("Updating front end...");
     const chainId = network.config.chainId.toString();
     const addresses = JSON.parse(fs.readFileSync(frontEndAddresses, "utf-8"));
     addresses[chainId]["governor"] = governorContract.address;
     fs.writeFileSync(frontEndAddresses, JSON.stringify(addresses));
-    log("Front end addresses updated.");
+
+    const abis = JSON.parse(fs.readFileSync(frontEndAbi, "utf-8"));
+    const abi = governorContract.abi;
+    abis["governor"] = abi;
+    fs.writeFileSync(frontEndAbi, JSON.stringify(abis));
+
+    log("Front end updated.");
   }
 };
 
