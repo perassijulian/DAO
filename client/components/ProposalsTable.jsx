@@ -1,12 +1,11 @@
-import { ethers } from "ethers";
 import { Table, useNotification } from "web3uikit";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
 
 const ProposalsTable = ({ proposals }) => {
-
   return (
     <Table
+      key="table"
       columnsConfig="100px 4fr 1fr 1fr 80px"
       data={proposals.map((p) => [
         shortenId(p.proposalId),

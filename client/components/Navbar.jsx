@@ -9,11 +9,14 @@ const Navbar = () => {
         </a>
       </Link>
       <div className="flex gap-3 items-center">
-        <Link href="/proposals">
+        <Link href="/proposals/vote">
           <a className="cursor-pointer hover:opacity-50 p-2">VOTE</a>
         </Link>
         <Link href="/proposals/new">
           <a className="cursor-pointer hover:opacity-50 p-2">ADD</a>
+        </Link>
+        <Link href="/proposals">
+          <a className="cursor-pointer hover:opacity-50 p-2">PROPOSALS</a>
         </Link>
       </div>
     </div>
