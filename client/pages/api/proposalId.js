@@ -14,10 +14,13 @@ export default function handler(req, res) {
 
   function createProposal() {
     const allProposals = getProposals();
-    const id = Object.keys(req.body);
-    const proposal = req.body[id];
-    allProposals[id] = proposal;
+    // const id = Object.keys(req.body);
+    // const proposal = req.body[id];
+    // allProposals[id] = proposal;
+    // fs.writeFileSync("./proposalsDB.json", JSON.stringify(allProposals));
+    allProposals.push(req.body);
     fs.writeFileSync("./proposalsDB.json", JSON.stringify(allProposals));
+
   }
 
   function getProposals() {

@@ -74,14 +74,18 @@ const CreateProject = () => {
 
     const receiptTx = await tx.wait(1);
     const proposalId = receiptTx.events[0].args.proposalId.toString();
+    proposal["proposalId"] = proposalId;
+    //TBD: ADD ALSO DEADLINE
 
-    await axios.post("/api/proposalId", { [proposalId]: proposal });
+    await axios.post("/api/proposalId", proposal);
     const idSliced = proposalId.slice(0, 4) + "..." + proposalId.slice(-4);
 
     handleNewNotification(
       "success",
       `You just made a new proposal with ID: ${idSliced}!`
     );
+
+    //TBD: ROUTE TO /PROPOSALS
   };
 
   return (
@@ -106,6 +110,7 @@ const CreateProject = () => {
             handlePropose();
           }}
         >
+          {/**TDB: SPINNER WHEN LOADING */}
           ADD
         </button>
       </div>

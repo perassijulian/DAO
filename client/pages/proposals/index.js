@@ -10,12 +10,7 @@ const proposals = () => {
   const getProposals = async () => {
     const { provider, contract } = await getContractSigned("governor");
     const res = await axios.get("/api/proposalId");
-    res.data.map(async (id) => {
-      const state = await contract.state(id[0]);
-      const proposalDeadlineBN = await contract.proposalDeadline(id[0]);
-      const proposalDeadline = proposalDeadlineBN.toString();
-      console.log(proposalDeadline)
-    });
+    console.log(res.data)
   };
 
   useEffect(() => {
