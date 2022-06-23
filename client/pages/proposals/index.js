@@ -1,9 +1,27 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Navbar from "../../components/Navbar";
 import ProposalsTable from "../../components/ProposalsTable";
 import { getContractSigned } from "../../utils/getContract";
 
 const proposals = () => {
-  const { provider, contract } = getContractSigned("holi");
+  const [proposal, setProposal] = useState({});
+
+  const getProposals = async () => {
+    const { provider, contract } = await getContractSigned("governor");
+    const res = await axios.get("/api/proposalId");
+    res.data.map(async (id) => {
+      const state = await contract.state(id[0]);
+      const proposalDeadlineBN = await contract.proposalDeadline(id[0]);
+      const proposalDeadline = proposalDeadlineBN.toString();
+      console.log(proposalDeadline)
+    });
+  };
+
+  useEffect(() => {
+    getProposals();
+  }, []);
+
   return (
     <div>
       <Navbar />

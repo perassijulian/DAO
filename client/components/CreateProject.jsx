@@ -57,16 +57,25 @@ const CreateProject = () => {
       "addProject",
       [project]
     );
+
+    const proposal = {
+      targets: [projectsAddress],
+      values: [0],
+      calldatas: [calldataEncoded],
+      description: project,
+    };
+
     const tx = await governorContract.propose(
-      [projectsAddress],
-      [0],
-      [calldataEncoded],
-      project
+      proposal.targets,
+      proposal.values,
+      proposal.calldatas,
+      proposal.description
     );
+
     const receiptTx = await tx.wait(1);
     const proposalId = receiptTx.events[0].args.proposalId.toString();
 
-    await axios.post("/api/proposalId", [proposalId]);
+    await axios.post("/api/proposalId", { [proposalId]: proposal });
     const idSliced = proposalId.slice(0, 4) + "..." + proposalId.slice(-4);
 
     handleNewNotification(

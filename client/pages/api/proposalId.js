@@ -6,14 +6,17 @@ export default function handler(req, res) {
       createProposal()
       return res.status(201).send("ProposalID saved correctly");
     case "GET":
-      return getProposals();
+      const proposals = getProposals();
+      return res.status(200).send(proposals);
     default:
       return res.status(405).end(`Method ${req.method} not allowed`);
   }
 
   function createProposal() {
     const allProposals = getProposals();
-    allProposals.push(req.body)
+    const id = Object.keys(req.body);
+    const proposal = req.body[id];
+    allProposals[id] = proposal;
     fs.writeFileSync("./proposalsDB.json", JSON.stringify(allProposals));
   }
 
