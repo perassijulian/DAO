@@ -5,17 +5,48 @@ import ProposalsTable from "../../components/ProposalsTable";
 import { getContractSigned } from "../../utils/getContract";
 
 const proposals = () => {
-  const [proposal, setProposal] = useState({});
+  const [proposals, setProposals] = useState([]);
 
   const getProposals = async () => {
-    const { provider, contract } = await getContractSigned("governor");
     const res = await axios.get("/api/proposalId");
-    console.log(res.data)
+    setProposals(res.data);
+  };
+
+
+        
+  const filterProposals = async () => {
+    const { provider, contract } = await getContractSigned("governor");
+    proposals.map(async p => {
+      const state = await contract.state(p.proposalId);
+      p["state"] = state;
+      // ProposalState 
+      // 0 Pending,
+      // 1 Active,
+      // 2 Canceled,
+      // 3 Defeated,
+      // 4 Succeeded,
+      // 5 Queued,
+      // 6 Expired,
+      // 7 Executed
+    });
+    console.log(proposals)
   };
 
   useEffect(() => {
     getProposals();
   }, []);
+
+  useEffect(() => {
+    filterProposals();
+  }, [proposals]);
+
+  if (proposals.length === 0)
+    return (
+      <div className="flex flex-col items-center">
+        <Navbar />
+        <div className="animate-spin p-3 border-b-4 rounded-full w-3 h-3 border-red-500 mt-8"></div>
+      </div>
+    );
 
   return (
     <div>
@@ -23,11 +54,7 @@ const proposals = () => {
       <div className="m-5">
         <div>
           <h2>Proposals you can vote</h2>
-          <ProposalsTable />
-        </div>
-        <div>
-          <h2>Proposals already voted</h2>
-          <ProposalsTable />
+          <ProposalsTable proposals={proposals} />
         </div>
       </div>
     </div>
