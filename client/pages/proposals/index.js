@@ -29,7 +29,7 @@ const proposals = () => {
       // 6 Expired,
       // 7 Executed
     });
-    console.log(proposals)
+    console.log('proposals:', proposals);
   };
 
   useEffect(() => {

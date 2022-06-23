@@ -1,10 +1,9 @@
+import { ethers } from "ethers";
 import { Table, useNotification } from "web3uikit";
 import { getContractSigned } from "../utils/getContract";
+import shortenId from "../utils/shortenId";
 
 const ProposalsTable = ({ proposals }) => {
-  const shortenId = (id) => {
-    return id.slice(0, 3) + " .. " + id.slice(-3);
-  };
 
   return (
     <Table
@@ -34,9 +33,9 @@ const ProposalsTable = ({ proposals }) => {
 const VotingButton = ({ proposalId }) => {
   const dispatch = useNotification();
 
-  const handleNewNotification = (message) => {
+  const handleNewNotification = (type, message) => {
     dispatch({
-      type: "error",
+      type,
       message,
       title: "New Notification",
       icon: "bell",
@@ -48,13 +47,22 @@ const VotingButton = ({ proposalId }) => {
     try {
       const { provider, contract } = await getContractSigned("governor");
       const voteTx = await contract.castVote(proposalId, voteWay);
-      const receipt = await voteTx.wait(1);
-      const res = receipt.events[0].args;
-      console.log(res);
-      console.log(voteWay);
-      console.log(proposalId);
-    } catch (error) {
-      handleNewNotification(error.message);
+      await voteTx.wait(1);
+      const voted =
+        voteWay == 0 ? "DECLINED" : voteWay == 1 ? "APPROVED" : "ABSTAINED";
+      const id = shortenId(proposalId);
+      handleNewNotification(
+        "success",
+        `You succesfully ${voted} project ${id}`
+      );
+    } catch (mainError) {
+      try {
+        let e = mainError.message.split("execution reverted: ");
+        e = e[1].split('"');
+        handleNewNotification("error", e[0]);
+      } catch (error) {
+        handleNewNotification("error", mainError.message);
+      }
     }
   };
   return (

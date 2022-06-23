@@ -13,7 +13,7 @@ const frontEndAddresses = "../client/contractAddresses.json";
 const frontEndAbi = "../client/contractAbi.json";
 
 const MIN_DELAY = 3600; //1hr => between proposal queued and being able to execute it
-const VOTING_PERIOD = 5; //5blocks => between proposal able to vote and finish voting
+const VOTING_PERIOD = 400; //400blocks => between proposal able to vote and finish voting. Around 1hr in rinkeby
 const VOTING_DELAY = 1; //1block => between propose and voting
 const QUORUM_PERCENTAGE = 4; //4%
 const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";

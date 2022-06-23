@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { TextArea, useNotification } from "web3uikit";
 import { ethers } from "ethers";
 import axios from "axios";
@@ -10,6 +11,7 @@ const CreateProject = () => {
   const [project, setProject] = useState("");
 
   const dispatch = useNotification();
+  const router = useRouter();
 
   const handleNewNotification = (type, message) => {
     dispatch({
@@ -75,17 +77,20 @@ const CreateProject = () => {
     const receiptTx = await tx.wait(1);
     const proposalId = receiptTx.events[0].args.proposalId.toString();
     proposal["proposalId"] = proposalId;
-    //TBD: ADD ALSO DEADLINE
+    const deadline = await governorContract.proposalDeadline(proposalId);
+    proposal["deadline"] = deadline.toString();
+    console.log('deadline.toString():', deadline.toString());
 
     await axios.post("/api/proposalId", proposal);
-    const idSliced = proposalId.slice(0, 4) + "..." + proposalId.slice(-4);
+    const idSliced = proposalId.slice(0, 3) + "..." + proposalId.slice(-3);
 
     handleNewNotification(
       "success",
       `You just made a new proposal with ID: ${idSliced}!`
     );
 
-    //TBD: ROUTE TO /PROPOSALS
+    router.push("/proposals");
+    //not working
   };
 
   return (
