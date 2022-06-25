@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import { useRouter } from "next/router";
 import { Table, useNotification } from "web3uikit";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
@@ -83,27 +84,72 @@ const VotingButton = ({ proposalId }) => {
 };
 
 const ActionButton = ({ action, proposal }) => {
+  const router = useRouter();
+  const dispatch = useNotification();
+
+  const handleNewNotification = (type, message) => {
+    dispatch({
+      type,
+      message,
+      title: "New Notification",
+      icon: "bell",
+      position: "topR",
+    });
+  };
+
   const handleAction = async () => {
     try {
       const { provider, contract } = await getContractSigned("governor");
-      console.log("contract:", contract);
       const descriptionHash = ethers.utils.id(proposal.description);
-      console.log("descriptionHash:", descriptionHash);
-      const queueTx = await contract.queue(
-        proposal.targets,
-        proposal.values,
-        proposal.calldatas,
-        descriptionHash
-      );
-      console.log("queueTx:", queueTx);
-      const queueReceipt = await queueTx.wait(1);
-      console.log("queueReceipt:", queueReceipt);
+      switch (action) {
+        case "QUEUE":
+          const queueTx = await contract.queue(
+            proposal.targets,
+            proposal.values,
+            proposal.calldatas,
+            descriptionHash
+          );
+          await queueTx.wait(1);
+
+          break;
+        case "EXECUTE":
+          const executeTx = await contract.queue(
+            proposal.targets,
+            proposal.values,
+            proposal.calldatas,
+            descriptionHash
+          );
+          await executeTx.wait(1);
+          break;
+        default:
+          break;
+      }
     } catch (mainError) {
-      console.log(mainError)
+      try {
+        let e = mainError.message.split("execution reverted: ");
+        e = e[1].split('"');
+        handleNewNotification("error", e[0]);
+      } catch (error) {
+        handleNewNotification("error", mainError.message);
+      }
     }
+    handleNewNotification(
+      "success",
+      `You succesfully ${action} project ${shortenId(proposal.proposalId)}`
+    );
+    setTimeout(() => {
+      router.reload(window.location.pathname);
+    }, 4000);
   };
 
-  return <button onClick={handleAction}>{action}</button>;
+  return (
+    <button
+      className="bg-green-600 py-1 px-2 text-white font-bold rounded-md"
+      onClick={handleAction}
+    >
+      {action}
+    </button>
+  );
 };
 
 export default ProposalsTable;

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import ProposalsTable from "../../components/ProposalsTable";
@@ -9,7 +8,6 @@ const Proposals = ({ proposals }) => {
   const [readyToExecute, setReadyToExecute] = useState([]);
   const [alreadyExecuted, setAlreadyExecuted] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log("proposals:", proposals);
 
   const filterProposals = async () => {
     //Make this filter
@@ -70,7 +68,6 @@ const Proposals = ({ proposals }) => {
         // 7 Executed
       })
     );
-    console.log(filtered);
     setLoading(false);
   };
 
