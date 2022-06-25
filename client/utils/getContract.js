@@ -24,3 +24,11 @@ export const getContractSigned = async (contractName) => {
   const contract = new ethers.Contract(address, abi, signer);
   return { provider, contract };
 };
+
+export const getContractUnsigned = async (contractName) => {
+  const provider = new ethers.providers.JsonRpcProvider();
+  const address = contractAddresses["4"][contractName];
+  const abi = contractAbi[contractName];
+  const contract = new ethers.Contract(address, abi, provider);
+  return { provider, contract };
+};

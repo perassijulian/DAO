@@ -2,18 +2,30 @@ import { Table, useNotification } from "web3uikit";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
 
-const ProposalsTable = ({ proposals }) => {
+const ProposalsTable = ({ proposals, action }) => {
   return (
     <Table
       key="table"
       columnsConfig="100px 4fr 1fr 1fr 80px"
-      data={proposals.map((p) => [
-        shortenId(p.proposalId),
-        p.description,
-        p.values[0],
-        <VotingButton key="vote" proposalId={p.proposalId} />,
-        "<button key=detailsBut>Details</button>",
-      ])}
+      data={proposals.map((p) => {
+        const button =
+          action === "vote" ? (
+            <VotingButton key="vote" proposalId={p.proposalId} />
+          ) : (
+            <ActionButton
+              key="action"
+              proposalId={p.proposalId}
+              action={action}
+            />
+          );
+        return [
+          shortenId(p.proposalId),
+          p.description,
+          p.values[0],
+          button,
+          "<button key=detailsBut>Details</button>",
+        ];
+      })}
       header={[
         <span key="id">ID</span>,
         <span key="description">Description</span>,
@@ -71,6 +83,10 @@ const VotingButton = ({ proposalId }) => {
       <button onClick={() => castVote(2, proposalId)}>❓</button>
     </div>
   );
+};
+
+const ActionButton = ({ action }) => {
+  return <button>{action}</button>;
 };
 
 export default ProposalsTable;

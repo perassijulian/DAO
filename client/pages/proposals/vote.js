@@ -12,14 +12,12 @@ const Vote = () => {
     setProposals(res.data);
   };
 
-
-        
   const filterProposals = async () => {
     const { provider, contract } = await getContractSigned("governor");
-    proposals.map(async p => {
+    proposals.map(async (p) => {
       const state = await contract.state(p.proposalId);
       p["state"] = state;
-      // ProposalState 
+      // ProposalState
       // 0 Pending,
       // 1 Active,
       // 2 Canceled,
@@ -29,7 +27,7 @@ const Vote = () => {
       // 6 Expired,
       // 7 Executed
     });
-    console.log('proposals:', proposals);
+    console.log("proposals:", proposals);
   };
 
   useEffect(() => {
@@ -53,8 +51,8 @@ const Vote = () => {
       <Navbar />
       <div className="m-5">
         <div>
-          <h2>Proposals you can vote</h2>
-          <ProposalsTable proposals={proposals} />
+          <h1 className="font-semibold">OPEN PROPOSALS</h1>
+          <ProposalsTable proposals={proposals} action="vote" />
         </div>
       </div>
     </div>
