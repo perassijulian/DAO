@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import { Table, useNotification } from "web3uikit";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
@@ -12,11 +13,7 @@ const ProposalsTable = ({ proposals, action }) => {
           action === "vote" ? (
             <VotingButton key="vote" proposalId={p.proposalId} />
           ) : (
-            <ActionButton
-              key="action"
-              proposalId={p.proposalId}
-              action={action}
-            />
+            <ActionButton key="action" proposal={p} action={action} />
           );
         return [
           shortenId(p.proposalId),
@@ -85,8 +82,28 @@ const VotingButton = ({ proposalId }) => {
   );
 };
 
-const ActionButton = ({ action }) => {
-  return <button>{action}</button>;
+const ActionButton = ({ action, proposal }) => {
+  const handleAction = async () => {
+    try {
+      const { provider, contract } = await getContractSigned("governor");
+      console.log("contract:", contract);
+      const descriptionHash = ethers.utils.id(proposal.description);
+      console.log("descriptionHash:", descriptionHash);
+      const queueTx = await contract.queue(
+        proposal.targets,
+        proposal.values,
+        proposal.calldatas,
+        descriptionHash
+      );
+      console.log("queueTx:", queueTx);
+      const queueReceipt = await queueTx.wait(1);
+      console.log("queueReceipt:", queueReceipt);
+    } catch (mainError) {
+      console.log(mainError)
+    }
+  };
+
+  return <button onClick={handleAction}>{action}</button>;
 };
 
 export default ProposalsTable;

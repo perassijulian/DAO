@@ -57,8 +57,8 @@ const Proposals = ({ proposals }) => {
     await Promise.all(
       await proposals.map(async (p) => {
         const state = await contract.state(p.proposalId);
-        filtered[state] = [...filtered[state], p]
-        
+        filtered[state] = [...filtered[state], p];
+
         // ProposalState
         // 0 Pending,
         // 1 Active,
@@ -70,7 +70,7 @@ const Proposals = ({ proposals }) => {
         // 7 Executed
       })
     );
-    console.log(filtered)
+    console.log(filtered);
     setLoading(false);
   };
 
@@ -95,7 +95,7 @@ const Proposals = ({ proposals }) => {
           />
         )}
       </div>
-      <div className="w-11/12 m-5">
+     <div className="w-11/12 m-5">
         <h1 className="font-semibold">READY TO QUEUE</h1>
         {loading ? (
           <div className="flex justify-center">
@@ -112,7 +112,7 @@ const Proposals = ({ proposals }) => {
             <div className="animate-spin p-3 border-b-4 rounded-full w-3 h-3 mt-8 border-red-500 "></div>
           </div>
         ) : (
-          <ProposalsTable key="table" proposals={alreadyExecuted} />
+          <ProposalsTable key="table" proposals={alreadyExecuted} action="" />
         )}
       </div>
     </div>
