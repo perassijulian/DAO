@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Table, useNotification } from "web3uikit";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
@@ -41,6 +42,7 @@ const ProposalsTable = ({ proposals, action }) => {
 
 const VotingButton = ({ proposalId }) => {
   const dispatch = useNotification();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleNewNotification = (type, message) => {
     dispatch({
@@ -53,16 +55,17 @@ const VotingButton = ({ proposalId }) => {
   };
 
   const castVote = async (voteWay, proposalId) => {
+    setIsLoading(true);
     try {
       const { provider, contract } = await getContractSigned("governor");
       const voteTx = await contract.castVote(proposalId, voteWay);
       await voteTx.wait(1);
       const voted =
-        voteWay == 0 ? "DECLINED" : voteWay == 1 ? "APPROVED" : "ABSTAINED";
+        voteWay == 0 ? "DECLINE" : voteWay == 1 ? "APPROVE" : "ABSTAIN on";
       const id = shortenId(proposalId);
       handleNewNotification(
         "success",
-        `You succesfully ${voted} project ${id}`
+        `You succesfully voted to ${voted} project ${id}`
       );
     } catch (mainError) {
       try {
@@ -73,7 +76,12 @@ const VotingButton = ({ proposalId }) => {
         handleNewNotification("error", mainError.message);
       }
     }
+    setIsLoading(false);
   };
+  if (isLoading)
+    return (
+      <div className="animate-spin p-2 h-2 w-2 border-b-4 border-red-500 rounded-full"></div>
+    );
   return (
     <div className="flex gap-3">
       <button onClick={() => castVote(1, proposalId)}>✔️</button>
@@ -84,6 +92,7 @@ const VotingButton = ({ proposalId }) => {
 };
 
 const ActionButton = ({ action, proposal }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useNotification();
 
@@ -98,6 +107,7 @@ const ActionButton = ({ action, proposal }) => {
   };
 
   const handleAction = async () => {
+    setIsLoading(true);
     try {
       const { provider, contract } = await getContractSigned("governor");
       const descriptionHash = ethers.utils.id(proposal.description);
@@ -124,6 +134,13 @@ const ActionButton = ({ action, proposal }) => {
         default:
           break;
       }
+      handleNewNotification(
+        "success",
+        `You succesfully ${action} project ${shortenId(proposal.proposalId)}`
+      );
+      setTimeout(() => {
+        router.reload(window.location.pathname);
+      }, 4000);
     } catch (mainError) {
       try {
         let e = mainError.message.split("execution reverted: ");
@@ -133,18 +150,19 @@ const ActionButton = ({ action, proposal }) => {
         handleNewNotification("error", mainError.message);
       }
     }
-    handleNewNotification(
-      "success",
-      `You succesfully ${action} project ${shortenId(proposal.proposalId)}`
-    );
-    setTimeout(() => {
-      router.reload(window.location.pathname);
-    }, 4000);
+    setIsLoading(false);
   };
+
+  if (isLoading)
+    return (
+      <div className="bg-green-600 h-8 w-24 rounded-md flex items-center justify-center">
+        <div className="animate-spin h-2 w-2 p-2 border-b-4 border-white rounded-full"></div>
+      </div>
+    );
 
   return (
     <button
-      className="bg-green-600 py-1 px-2 text-white font-bold rounded-md"
+      className="bg-green-600 h-8 w-24 text-white font-bold rounded-md"
       onClick={handleAction}
     >
       {action}

@@ -9,6 +9,7 @@ import contractAbi from "../contractAbi.json";
 
 const CreateProject = () => {
   const [project, setProject] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useNotification();
   const router = useRouter();
@@ -26,71 +27,87 @@ const CreateProject = () => {
   const handlePropose = async () => {
     // const { provider, contract } = await getContractSigned("governor");
     // const { provider, contract } = await getContractSigned("projects");
-    const web3modal = new Web3Modal();
-    const connection = await web3modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
-
-    const { chainId } = await provider.getNetwork();
-    if (chainId !== 4) {
-      handleNewNotification("error", "Please change to Rinkeby network");
+    if (project.length < 15) {
+      handleNewNotification(
+        "error",
+        "Please be more specific. Projects must have at least 15 characters"
+      );
       return;
     }
+    setIsLoading(true);
+    try {
+      const web3modal = new Web3Modal();
+      const connection = await web3modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
 
-    const governorAddress = contractAddresses[chainId.toString()]["governor"];
-    const governorAbi = contractAbi["governor"];
+      const { chainId } = await provider.getNetwork();
+      if (chainId !== 4) {
+        handleNewNotification("error", "Please change to Rinkeby network");
+        setIsLoading(false);
+        return;
+      }
 
-    const governorContract = new ethers.Contract(
-      governorAddress,
-      governorAbi,
-      signer
-    );
+      const governorAddress = contractAddresses[chainId.toString()]["governor"];
+      const governorAbi = contractAbi["governor"];
 
-    const projectsAddress = contractAddresses[chainId.toString()]["projects"];
-    const projectsAbi = contractAbi["projects"];
+      const governorContract = new ethers.Contract(
+        governorAddress,
+        governorAbi,
+        signer
+      );
 
-    const projectsContract = new ethers.Contract(
-      projectsAddress,
-      projectsAbi,
-      signer
-    );
+      const projectsAddress = contractAddresses[chainId.toString()]["projects"];
+      const projectsAbi = contractAbi["projects"];
 
-    const calldataEncoded = projectsContract.interface.encodeFunctionData(
-      "addProject",
-      [project]
-    );
+      const projectsContract = new ethers.Contract(
+        projectsAddress,
+        projectsAbi,
+        signer
+      );
 
-    const proposal = {
-      targets: [projectsAddress],
-      values: [0],
-      calldatas: [calldataEncoded],
-      description: project,
-    };
+      const calldataEncoded = projectsContract.interface.encodeFunctionData(
+        "addProject",
+        [project]
+      );
 
-    const tx = await governorContract.propose(
-      proposal.targets,
-      proposal.values,
-      proposal.calldatas,
-      proposal.description
-    );
+      const proposal = {
+        targets: [projectsAddress],
+        values: [0],
+        calldatas: [calldataEncoded],
+        description: project,
+      };
 
-    const receiptTx = await tx.wait(1);
-    const proposalId = receiptTx.events[0].args.proposalId.toString();
-    proposal["proposalId"] = proposalId;
-    const deadline = await governorContract.proposalDeadline(proposalId);
-    proposal["deadline"] = deadline.toString();
-    console.log('deadline.toString():', deadline.toString());
+      const tx = await governorContract.propose(
+        proposal.targets,
+        proposal.values,
+        proposal.calldatas,
+        proposal.description
+      );
 
-    await axios.post("/api/proposalId", proposal);
-    const idSliced = proposalId.slice(0, 3) + "..." + proposalId.slice(-3);
+      const receiptTx = await tx.wait(1);
+      const proposalId = receiptTx.events[0].args.proposalId.toString();
+      proposal["proposalId"] = proposalId;
+      const deadline = await governorContract.proposalDeadline(proposalId);
+      proposal["deadline"] = deadline.toString();
+      console.log("deadline.toString():", deadline.toString());
 
-    handleNewNotification(
-      "success",
-      `You just made a new proposal with ID: ${idSliced}!`
-    );
+      await axios.post("/api/proposalId", proposal);
+      const idSliced = proposalId.slice(0, 3) + "..." + proposalId.slice(-3);
 
-    router.push("/proposals");
-    //not working
+      handleNewNotification(
+        "success",
+        `You just made a new proposal with ID: ${idSliced}!`
+      );
+      setIsLoading(false);
+
+      setTimeout(() => {
+        router.replace("/proposals/vote");
+      }, 3500);
+    } catch (error) {
+      handleNewNotification("error", error.message);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -110,13 +127,16 @@ const CreateProject = () => {
           />
         </div>
         <button
-          className="bg-red-500 px-8 py-1 mb-4 rounded-md font-bold text-white"
+          className="bg-red-500 w-24 h-8 mb-4 rounded-md font-bold text-white flex items-center justify-center"
           onClick={() => {
             handlePropose();
           }}
         >
-          {/**TDB: SPINNER WHEN LOADING */}
-          ADD
+          {isLoading ? (
+            <div className="animate-spin p-2 border-b-4 rounded-full w-2 h-2 border-white"></div>
+          ) : (
+            "ADD"
+          )}
         </button>
       </div>
     </div>
