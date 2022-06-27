@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import ERC20Abi from "../constants/ERC20Abi.json";
-import contractAddresses from "../contractAddresses.json";
+import contractAddresses from "../constants/contractAddresses.json";
 import Web3Modal from "web3modal";
 
 export default async () => {

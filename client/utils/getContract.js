@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
-import contractAddresses from "../contractAddresses.json";
-import contractAbi from "../contractAbi.json";
+import contractAddresses from "../constants/contractAddresses.json";
+import contractAbi from "../constants/contractAbi.json";
 
 export const getContractSigned = async (contractName) => {
   try {
