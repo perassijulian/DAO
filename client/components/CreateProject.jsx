@@ -6,6 +6,7 @@ import axios from "axios";
 import Web3Modal from "web3modal";
 import contractAddresses from "../contractAddresses.json";
 import contractAbi from "../contractAbi.json";
+import checkIfMember from "../utils/checkIfMember";
 
 const CreateProject = () => {
   const [project, setProject] = useState("");
@@ -35,6 +36,16 @@ const CreateProject = () => {
       return;
     }
     setIsLoading(true);
+    const isMember = await checkIfMember();
+    if (!isMember) {
+      handleNewNotification(
+        "error",
+        "You need to have at least 1 governance token to be able to create a proposal"
+      );
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const web3modal = new Web3Modal();
       const connection = await web3modal.connect();

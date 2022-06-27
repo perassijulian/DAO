@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Table, useNotification } from "web3uikit";
+import checkIfMember from "../utils/checkIfMember";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
 
@@ -56,6 +57,15 @@ const VotingButton = ({ proposalId }) => {
 
   const castVote = async (voteWay, proposalId) => {
     setIsLoading(true);
+    const isMember = await checkIfMember();
+    if (!isMember) {
+      handleNewNotification(
+        "error",
+        "You need to have at least 1 governance token to be able to vote"
+      );
+      setIsLoading(false);
+      return;
+    }
     try {
       const { provider, contract } = await getContractSigned("governor");
       const voteTx = await contract.castVote(proposalId, voteWay);
@@ -108,6 +118,16 @@ const ActionButton = ({ action, proposal }) => {
 
   const handleAction = async () => {
     setIsLoading(true);
+    const isMember = await checkIfMember();
+    if (!isMember) {
+      handleNewNotification(
+        "error",
+        "You need to have at least 1 governance token to be able to do this"
+      );
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const { provider, contract } = await getContractSigned("governor");
       const descriptionHash = ethers.utils.id(proposal.description);

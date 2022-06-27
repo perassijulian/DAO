@@ -9,9 +9,13 @@ const Vote = ({ proposals }) => {
 
   useEffect(() => {
     const filter = async () => {
-      const res = await filterProposals(proposals);
-      setFilteredProposals(res);
-      setIsLoading(false);
+      try {
+        const res = await filterProposals(proposals);
+        setFilteredProposals(res);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error)
+      }
     };
 
     filter();
