@@ -4,8 +4,8 @@ import { TextArea, useNotification } from "web3uikit";
 import { ethers } from "ethers";
 import axios from "axios";
 import Web3Modal from "web3modal";
-import contractAddresses from "../contractAddresses.json";
-import contractAbi from "../contractAbi.json";
+import contractAddresses from "../constants/contractAddresses.json";
+import contractAbi from "../constants/contractAbi.json";
 import checkIfMember from "../utils/checkIfMember";
 
 const CreateProject = () => {
