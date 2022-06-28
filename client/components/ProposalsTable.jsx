@@ -105,6 +105,7 @@ const ActionButton = ({ action, proposal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useNotification();
+  useRouter
 
   const handleNewNotification = (type, message) => {
     dispatch({
@@ -143,7 +144,7 @@ const ActionButton = ({ action, proposal }) => {
 
           break;
         case "EXECUTE":
-          const executeTx = await contract.queue(
+          const executeTx = await contract.execute(
             proposal.targets,
             proposal.values,
             proposal.calldatas,
@@ -151,6 +152,9 @@ const ActionButton = ({ action, proposal }) => {
           );
           await executeTx.wait(1);
           break;
+        case "DETAILS":
+          router.push('/')
+          return;
         default:
           break;
       }

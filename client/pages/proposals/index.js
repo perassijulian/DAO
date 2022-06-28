@@ -58,7 +58,7 @@ const Proposals = ({ proposals }) => {
           <ProposalsTable
             key="table"
             proposals={filteredProposals[7]}
-            action=""
+            action="DETAILS"
           />
         )}
       </div>

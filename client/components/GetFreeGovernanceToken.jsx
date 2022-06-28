@@ -38,12 +38,11 @@ const GetFreeGovernanceToken = () => {
       const { provider, contract } = await getContractSigned("governorToken");
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
-        handleNewNotification("error", "Please switch to Rinkeby network");
+        handleNewNotification("error", "Please switch to Rinkeby network in your metamask account");
         setIsLoading(false);
         return
       }
 
-      console.log("chainId:", chainId);
       //get contract from dao wallet with its secret key
       const daoWallet = new ethers.Wallet(
         process.env.NEXT_PUBLIC_SECRET_KEY,
@@ -58,7 +57,7 @@ const GetFreeGovernanceToken = () => {
       await txDAO.wait(1);
       const txETH = await daoWallet.sendTransaction({
         to: signer,
-        value: ethers.utils.parseEther("0.1"),
+        value: ethers.utils.parseEther("0.05"),
       });
       await txETH.wait(1);
 
