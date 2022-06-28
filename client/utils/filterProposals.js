@@ -22,7 +22,11 @@ export default async (proposals) => {
     );
     return filtered;
   } catch (mainError) {
+    console.log('----------------------------')
+    console.log('/utils/filterProposals ERROR')
+    console.log('(check network)')
     console.log(mainError)
+    return filtered
   }
 
 };

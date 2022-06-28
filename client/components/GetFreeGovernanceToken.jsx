@@ -34,9 +34,16 @@ const GetFreeGovernanceToken = () => {
       handleNewNotification("error", "You already have DAO tokens");
     }
     setIsLoading(true);
-    const { provider, contract } = await getContractSigned("governorToken");
-
     try {
+      const { provider, contract } = await getContractSigned("governorToken");
+      const { chainId } = await provider.getNetwork();
+      if (chainId !== 4) {
+        handleNewNotification("error", "Please switch to Rinkeby network");
+        setIsLoading(false);
+        return
+      }
+
+      console.log("chainId:", chainId);
       //get contract from dao wallet with its secret key
       const daoWallet = new ethers.Wallet(
         process.env.NEXT_PUBLIC_SECRET_KEY,
@@ -59,11 +66,11 @@ const GetFreeGovernanceToken = () => {
         "success",
         "You got 200DAO tokens and some ETH to pay gas"
       );
-      setIsLoading(false);
       setIsMember(true);
-    } catch (error) {
-      console.log(error);
+    } catch (mainError) {
+      handleNewNotification("error", mainError.message);
     }
+    setIsLoading(false);
   };
 
   return (

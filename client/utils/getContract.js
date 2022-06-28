@@ -18,6 +18,9 @@ export const getContractSigned = async (contractName) => {
     try {
       address = contractAddresses[chainId.toString()][contractName];
     } catch (error) {
+      console.log('----------------------------')
+      console.log('/utils/getContract ERROR')
+      console.log('Not on rinkeby network')
       address = contractAddresses["4"][contractName];
     }
     const abi = contractAbi[contractName];
