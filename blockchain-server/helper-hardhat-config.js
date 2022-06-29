@@ -21,10 +21,9 @@ const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
 const PROJECT_FUNCTION = "mint";
 const PROJECT_ARG = [
   "0xbf3f8D6a3aE5cfc144AA116896b82F3a87671F83",
-  1,
   100,
   [],
-  "projectHash",
+  "bafkreihnnvdet7b3kjitiztwjmxz7onouuns55wqgtjq3hg3mem5nq6v6a",
 ];
 const PROJECT_DESCRIPTION = `Mint ${PROJECT_ARG[2]} tokens with id ${PROJECT_ARG[1]} to address ${PROJECT_ARG[0]}`;
 

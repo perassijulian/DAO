@@ -1549,8 +1549,8 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\contracts\\Projects.sol": {
-      "lastModificationDate": 1656460729303,
-      "contentHash": "3f868971fb30037da633c56538ba66d0",
+      "lastModificationDate": 1656464885215,
+      "contentHash": "10ef36299e56a39e06b7480404e7f2a5",
       "sourceName": "contracts/Projects.sol",
       "solcConfig": {
         "version": "0.8.8",
@@ -1583,6 +1583,7 @@
         }
       },
       "imports": [
+        "@openzeppelin/contracts/utils/Counters.sol",
         "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/token/ERC1155/ERC1155.sol"
       ],

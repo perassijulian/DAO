@@ -32,8 +32,7 @@ describe("Governance actions", async () => {
         PROJECT_ARG[0],
         PROJECT_ARG[1],
         PROJECT_ARG[2],
-        PROJECT_ARG[3],
-        PROJECT_ARG[4]
+        PROJECT_ARG[3]
       )
     ).to.be.revertedWith("Ownable: caller is not the owner");
   });
@@ -41,13 +40,7 @@ describe("Governance actions", async () => {
   it("Should allow to propose, vote and execute proposals", async () => {
     const calldataHash = projects.interface.encodeFunctionData(
       PROJECT_FUNCTION,
-      [
-        PROJECT_ARG[0],
-        PROJECT_ARG[1],
-        PROJECT_ARG[2],
-        PROJECT_ARG[3],
-        PROJECT_ARG[4],
-      ]
+      [PROJECT_ARG[0], PROJECT_ARG[1], PROJECT_ARG[2], PROJECT_ARG[3]]
     );
     const descriptionHash = ethers.utils.id(PROJECT_DESCRIPTION);
 
@@ -107,8 +100,9 @@ describe("Governance actions", async () => {
     assert.equal(executeEvent, "ProposalExecuted");
     console.log("Execute proposal ✔️");
 
-    const res = await projects.balanceOf(PROJECT_ARG[0], PROJECT_ARG[1]);
-    assert.equal(res.toString(), PROJECT_ARG[2].toString());
+    const tokenAmount = await projects.getProjectsAmount();
+    const res = await projects.balanceOf(PROJECT_ARG[0], tokenAmount);
+    assert.equal(res.toString(), PROJECT_ARG[1].toString());
     console.log("Token transferred ✔️");
   });
 
@@ -117,13 +111,7 @@ describe("Governance actions", async () => {
 
     const calldataHash = projects.interface.encodeFunctionData(
       PROJECT_FUNCTION,
-      [
-        PROJECT_ARG[0],
-        PROJECT_ARG[1],
-        PROJECT_ARG[2],
-        PROJECT_ARG[3],
-        PROJECT_ARG[4],
-      ]
+      [PROJECT_ARG[0], PROJECT_ARG[1], PROJECT_ARG[2], PROJECT_ARG[3]]
     );
     const descriptionHash = ethers.utils.id(PROJECT_DESCRIPTION);
 
@@ -178,7 +166,8 @@ describe("Governance actions", async () => {
     const executeEvent = executeReceipt.events[0].event;
     assert.equal(executeEvent, "ProposalExecuted");
 
-    const res = await projects.balanceOf(PROJECT_ARG[0], PROJECT_ARG[1]);
-    assert.equal(res.toString(), PROJECT_ARG[2].toString());
+    const tokenAmount = await projects.getProjectsAmount();
+    const res = await projects.balanceOf(PROJECT_ARG[0], tokenAmount);
+    assert.equal(res.toString(), PROJECT_ARG[1].toString());
   });
 });
