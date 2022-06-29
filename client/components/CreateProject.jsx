@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { TextArea, useNotification } from "web3uikit";
+import { TextArea, useNotification, Input } from "web3uikit";
 import { ethers } from "ethers";
+import { create as ipfsHttpClient } from "ipfs-http-client";
 import axios from "axios";
 import Web3Modal from "web3modal";
 import contractAddresses from "../constants/contractAddresses.json";
 import contractAbi from "../constants/contractAbi.json";
 import checkIfMember from "../utils/checkIfMember";
+import shortenId from "../utils/shortenId";
+
+const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 const CreateProject = () => {
-  const [project, setProject] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [fileUrl, setFileUrl] = useState(null);
+  const [formInput, setFormInput] = useState({
+    name: "",
+    description: "",
+  });
   const dispatch = useNotification();
   const router = useRouter();
 
@@ -25,16 +32,37 @@ const CreateProject = () => {
     });
   };
 
-  const handlePropose = async () => {
-    // const { provider, contract } = await getContractSigned("governor");
-    // const { provider, contract } = await getContractSigned("projects");
-    if (project.length < 15) {
-      handleNewNotification(
-        "error",
-        "Please be more specific. Projects must have at least 15 characters"
-      );
-      return;
+  const handleChange = async (e) => {
+    setIsLoading(true);
+    const file = e.target.files[0];
+    try {
+      const added = await client.add(file, {
+        progress: (prog) => console.log(`received: ${prog}`),
+      });
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      setFileUrl(url);
+    } catch (error) {
+      handleNewNotification("error", error.message);
     }
+    setIsLoading(false);
+  };
+
+  const uploadToIPFS = async () => {
+    const { name, description } = formInput;
+    const data = JSON.stringify({
+      name,
+      description,
+      image: fileUrl,
+    });
+    try {
+      const added = await client.add(data);
+      return added.path;
+    } catch (error) {
+      handleNewNotification("error", error.message);
+    }
+  };
+
+  const handlePropose = async () => {
     setIsLoading(true);
     const isMember = await checkIfMember();
     if (!isMember) {
@@ -45,6 +73,8 @@ const CreateProject = () => {
       setIsLoading(false);
       return;
     }
+
+    const hashIpfs = await uploadToIPFS();
 
     try {
       const web3modal = new Web3Modal();
@@ -77,16 +107,18 @@ const CreateProject = () => {
         signer
       );
 
+      //here start
+
       const calldataEncoded = projectsContract.interface.encodeFunctionData(
-        "addProject",
-        [project]
+        "mint",
+        ["0xbf3f8D6a3aE5cfc144AA116896b82F3a87671F83", 2, [], hashIpfs]
       );
 
       const proposal = {
         targets: [projectsAddress],
         values: [0],
         calldatas: [calldataEncoded],
-        description: project,
+        description: "first project",
       };
 
       const tx = await governorContract.propose(
@@ -101,14 +133,12 @@ const CreateProject = () => {
       proposal["proposalId"] = proposalId;
       const deadline = await governorContract.proposalDeadline(proposalId);
       proposal["deadline"] = deadline.toString();
-      console.log("deadline.toString():", deadline.toString());
 
       await axios.post("/api/proposalId", proposal);
-      const idSliced = proposalId.slice(0, 3) + "..." + proposalId.slice(-3);
 
       handleNewNotification(
         "success",
-        `You just made a new proposal with ID: ${idSliced}!`
+        `You just made a new proposal with ID: ${shortenId(proposalId)}!`
       );
       setIsLoading(false);
 
@@ -125,15 +155,29 @@ const CreateProject = () => {
     <div className="flex flex-col items-center gap-3 mt-6">
       <h1 className="font-bold text-3xl">CREATE A NEW PROJECT</h1>
       <div className="bg-red-100 w-2/4 flex flex-col items-center">
+        <input type="file" className="mt-6" onChange={handleChange} />
+        <div className="w-11/12 mt-6">
+          <Input
+            label="Title"
+            onBlur={function noRefCheck() {}}
+            onChange={(e) =>
+              setFormInput({ ...formInput, name: e.target.value })
+            }
+            style={{
+              backgroundColor: "white",
+            }}
+            width="100%"
+          />
+        </div>
         <div className="w-11/12 my-6">
           <TextArea
-            label="new project"
+            label="Description"
             onBlur={function noRefCheck() {}}
             onChange={(e) => {
-              setProject(e.target.value);
+              setFormInput({ ...formInput, description: e.target.value });
             }}
-            placeholder={project}
-            value={project}
+            placeholder={formInput.description}
+            value={formInput.description}
             width="100%"
           />
         </div>

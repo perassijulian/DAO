@@ -32,7 +32,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -81,7 +82,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -135,7 +137,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -179,7 +182,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -223,7 +227,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -269,7 +274,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -314,7 +320,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -358,7 +365,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -400,7 +408,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -444,7 +453,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -488,7 +498,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -532,7 +543,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -576,7 +588,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -618,7 +631,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -662,7 +676,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -704,7 +719,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -746,7 +762,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -788,7 +805,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -832,7 +850,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -874,7 +893,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -916,7 +936,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -960,7 +981,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1006,7 +1028,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1053,7 +1076,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -1095,7 +1119,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -1137,7 +1162,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1185,7 +1211,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1233,7 +1260,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -1275,7 +1303,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -1317,7 +1346,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1363,7 +1393,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -1405,7 +1436,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [],
@@ -1447,7 +1479,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1458,94 +1491,6 @@
       ],
       "artifacts": [
         "IERC20Metadata"
-      ]
-    },
-    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\contracts\\governance-standard\\TimeLock.sol": {
-      "lastModificationDate": 1655485859400,
-      "contentHash": "ccbc95bd55072fdf6db9f19f5016aa54",
-      "sourceName": "contracts/governance-standard/TimeLock.sol",
-      "solcConfig": {
-        "version": "0.8.8",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/governance/TimelockController.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.8"
-      ],
-      "artifacts": [
-        "TimeLock"
-      ]
-    },
-    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
-      "lastModificationDate": 1656452074253,
-      "contentHash": "8398972af73b4e9e5ff3b31cad86234f",
-      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
-      "solcConfig": {
-        "version": "0.8.8",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "devdoc",
-                "userdoc",
-                "storageLayout",
-                "evm.gasEstimates"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          },
-          "metadata": {
-            "useLiteralContent": true
-          }
-        }
-      },
-      "imports": [
-        "../utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Ownable"
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\contracts\\Projects.sol": {
@@ -1579,7 +1524,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1594,10 +1540,10 @@
         "Projects"
       ]
     },
-    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\contracts\\GovernanceToken.sol": {
-      "lastModificationDate": 1655404038921,
-      "contentHash": "9cf3b62a3a7f139b55acf3e7467b3a34",
-      "sourceName": "contracts/GovernanceToken.sol",
+    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
+      "lastModificationDate": 1656452074253,
+      "contentHash": "8398972af73b4e9e5ff3b31cad86234f",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
         "version": "0.8.8",
         "settings": {
@@ -1625,17 +1571,18 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
-        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol"
+        "../utils/Context.sol"
       ],
       "versionPragmas": [
-        "^0.8.8"
+        "^0.8.0"
       ],
       "artifacts": [
-        "GovernanceToken"
+        "Ownable"
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\ERC1155.sol": {
@@ -1669,7 +1616,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1718,7 +1666,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1762,7 +1711,8 @@
           },
           "metadata": {
             "useLiteralContent": true
-          }
+          },
+          "libraries": {}
         }
       },
       "imports": [
@@ -1773,6 +1723,96 @@
       ],
       "artifacts": [
         "IERC1155MetadataURI"
+      ]
+    },
+    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\contracts\\governance-standard\\TimeLock.sol": {
+      "lastModificationDate": 1655485859400,
+      "contentHash": "ccbc95bd55072fdf6db9f19f5016aa54",
+      "sourceName": "contracts/governance-standard/TimeLock.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          },
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/governance/TimelockController.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.8"
+      ],
+      "artifacts": [
+        "TimeLock"
+      ]
+    },
+    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\contracts\\GovernanceToken.sol": {
+      "lastModificationDate": 1655404038921,
+      "contentHash": "9cf3b62a3a7f139b55acf3e7467b3a34",
+      "sourceName": "contracts/GovernanceToken.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          },
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.8"
+      ],
+      "artifacts": [
+        "GovernanceToken"
       ]
     }
   }
