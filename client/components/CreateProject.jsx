@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { TextArea, useNotification, Input } from "web3uikit";
-import { ethers } from "ethers";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import axios from "axios";
-import Web3Modal from "web3modal";
-import contractAddresses from "../constants/contractAddresses.json";
-import contractAbi from "../constants/contractAbi.json";
 import checkIfMember from "../utils/checkIfMember";
 import shortenId from "../utils/shortenId";
+import { getContractSigned } from "../utils/getContract";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
@@ -77,10 +74,12 @@ const CreateProject = () => {
     const hashIpfs = await uploadToIPFS();
 
     try {
-      const web3modal = new Web3Modal();
-      const connection = await web3modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
-      const signer = provider.getSigner();
+      const { provider, contract: governorContract } = await getContractSigned(
+        "governor"
+      );
+      const { provider1, contract: projectsContract } = await getContractSigned(
+        "projects"
+      );
 
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
@@ -89,36 +88,16 @@ const CreateProject = () => {
         return;
       }
 
-      const governorAddress = contractAddresses[chainId.toString()]["governor"];
-      const governorAbi = contractAbi["governor"];
-
-      const governorContract = new ethers.Contract(
-        governorAddress,
-        governorAbi,
-        signer
-      );
-
-      const projectsAddress = contractAddresses[chainId.toString()]["projects"];
-      const projectsAbi = contractAbi["projects"];
-
-      const projectsContract = new ethers.Contract(
-        projectsAddress,
-        projectsAbi,
-        signer
-      );
-
-      //here start
-
       const calldataEncoded = projectsContract.interface.encodeFunctionData(
         "mint",
         ["0xbf3f8D6a3aE5cfc144AA116896b82F3a87671F83", 2, [], hashIpfs]
       );
 
       const proposal = {
-        targets: [projectsAddress],
+        targets: [projectsContract.address],
         values: [0],
         calldatas: [calldataEncoded],
-        description: "first project",
+        description: formInput.name,
       };
 
       const tx = await governorContract.propose(
