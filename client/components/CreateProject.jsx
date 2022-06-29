@@ -36,7 +36,7 @@ const CreateProject = () => {
       const added = await client.add(file, {
         progress: (prog) => console.log(`received: ${prog}`),
       });
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const url = `https://ipfs.io/ipfs/${added.path}`;
       setFileUrl(url);
     } catch (error) {
       handleNewNotification("error", error.message);
@@ -61,6 +61,29 @@ const CreateProject = () => {
 
   const handlePropose = async () => {
     setIsLoading(true);
+    const { name, description } = formInput;
+    if (!name || name.length < 15) {
+      handleNewNotification(
+        "error",
+        "Please write a title with more than 15 characters"
+      );
+      setIsLoading(false);
+      return;
+    }
+    if (!description || description.length < 100) {
+      handleNewNotification(
+        "error",
+        "Please write a description with more than 100 characters"
+      );
+      setIsLoading(false);
+      return;
+    }
+    if (!fileUrl) {
+      handleNewNotification("error", "Please select a file");
+      setIsLoading(false);
+      return;
+    }
+
     const isMember = await checkIfMember();
     if (!isMember) {
       handleNewNotification(

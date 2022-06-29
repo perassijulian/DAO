@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
+import Link from 'next/link'
 import { useState } from "react";
 import { Table, useNotification } from "web3uikit";
 import checkIfMember from "../utils/checkIfMember";
@@ -23,7 +24,7 @@ const ProposalsTable = ({ proposals, action }) => {
           p.description,
           p.values[0],
           button,
-          "<button key=detailsBut>Details</button>",
+          <Link href={`/proposals/${p.proposalId}`}><a>Details</a></Link>,
         ];
       })}
       header={[

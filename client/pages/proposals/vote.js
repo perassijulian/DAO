@@ -47,6 +47,7 @@ const Vote = ({ proposals }) => {
             proposals={filteredProposals[0].concat(filteredProposals[1])}
             action="vote"
           />
+          <div className="text-red-500 text-center w-full">Remember that you need 20seconds between propose and to be able to vote</div>
         </div>
       </div>
     </div>
