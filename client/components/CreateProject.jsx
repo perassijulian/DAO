@@ -36,7 +36,7 @@ const CreateProject = () => {
       const added = await client.add(file, {
         progress: (prog) => console.log(`received: ${prog}`),
       });
-      const url = `https://ipfs.io/ipfs/${added.path}`;
+      const url = `ipfs://${added.path}`;
       setFileUrl(url);
     } catch (error) {
       handleNewNotification("error", error.message);
@@ -154,9 +154,9 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-3 mt-6">
-      <h1 className="font-bold text-3xl">CREATE A NEW PROJECT</h1>
-      <div className="bg-red-100 w-2/4 flex flex-col items-center">
+    <div className="flex flex-col items-center">
+      <h1 className="font-bold text-3xl mt-6">CREATE A NEW PROJECT</h1>
+      <div className="bg-red-100 w-2/4 flex flex-col items-center mt-4">
         <input type="file" className="mt-6" onChange={handleChange} />
         <div className="w-11/12 mt-6">
           <Input
