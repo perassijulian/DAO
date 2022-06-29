@@ -27,15 +27,27 @@ describe("Governance actions", async () => {
   });
 
   it("Should not allow Projects to be executed by anybody", async () => {
-    await expect(projects.addProject(PROJECT_ARG)).to.be.revertedWith(
-      "Ownable: caller is not the owner"
-    );
+    await expect(
+      projects.mint(
+        PROJECT_ARG[0],
+        PROJECT_ARG[1],
+        PROJECT_ARG[2],
+        PROJECT_ARG[3],
+        PROJECT_ARG[4]
+      )
+    ).to.be.revertedWith("Ownable: caller is not the owner");
   });
 
   it("Should allow to propose, vote and execute proposals", async () => {
     const calldataHash = projects.interface.encodeFunctionData(
       PROJECT_FUNCTION,
-      [PROJECT_ARG]
+      [
+        PROJECT_ARG[0],
+        PROJECT_ARG[1],
+        PROJECT_ARG[2],
+        PROJECT_ARG[3],
+        PROJECT_ARG[4],
+      ]
     );
     const descriptionHash = ethers.utils.id(PROJECT_DESCRIPTION);
 
@@ -95,9 +107,9 @@ describe("Governance actions", async () => {
     assert.equal(executeEvent, "ProposalExecuted");
     console.log("Execute proposal ✔️");
 
-    const res = await projects.getProjects();
-    assert.equal(res[0], PROJECT_ARG);
-    console.log("Contract updated ✔️");
+    const res = await projects.balanceOf(PROJECT_ARG[0], PROJECT_ARG[1]);
+    assert.equal(res.toString(), PROJECT_ARG[2].toString());
+    console.log("Token transferred ✔️");
   });
 
   it("Should revert when not enought time has passed", async () => {
@@ -105,7 +117,13 @@ describe("Governance actions", async () => {
 
     const calldataHash = projects.interface.encodeFunctionData(
       PROJECT_FUNCTION,
-      [PROJECT_ARG]
+      [
+        PROJECT_ARG[0],
+        PROJECT_ARG[1],
+        PROJECT_ARG[2],
+        PROJECT_ARG[3],
+        PROJECT_ARG[4],
+      ]
     );
     const descriptionHash = ethers.utils.id(PROJECT_DESCRIPTION);
 
@@ -160,7 +178,7 @@ describe("Governance actions", async () => {
     const executeEvent = executeReceipt.events[0].event;
     assert.equal(executeEvent, "ProposalExecuted");
 
-    const res = await projects.getProjects();
-    assert.equal(res[0], PROJECT_ARG);
+    const res = await projects.balanceOf(PROJECT_ARG[0], PROJECT_ARG[1]);
+    assert.equal(res.toString(), PROJECT_ARG[2].toString());
   });
 });

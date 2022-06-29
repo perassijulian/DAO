@@ -9,8 +9,8 @@ const networkConfig = {
 };
 
 const developmentChains = ["hardhat", "localhost"];
-const frontEndAddresses = "../client/contractAddresses.json";
-const frontEndAbi = "../client/contractAbi.json";
+const frontEndAddresses = "../client/constants/contractAddresses.json";
+const frontEndAbi = "../client/constants/contractAbi.json";
 
 const MIN_DELAY = 3600; //1hr => between proposal queued and being able to execute it
 const VOTING_PERIOD = 400; //400blocks => between proposal able to vote and finish voting. Around 1hr in rinkeby
@@ -18,9 +18,15 @@ const VOTING_DELAY = 1; //1block => between propose and voting
 const QUORUM_PERCENTAGE = 4; //4%
 const ADDRESS_ZERO = "0x0000000000000000000000000000000000000000";
 
-const PROJECT_DESCRIPTION = "First proposal description";
-const PROJECT_FUNCTION = "addProject";
-const PROJECT_ARG = "Make more bridges";
+const PROJECT_FUNCTION = "mint";
+const PROJECT_ARG = [
+  "0xbf3f8D6a3aE5cfc144AA116896b82F3a87671F83",
+  1,
+  100,
+  [],
+  "projectHash",
+];
+const PROJECT_DESCRIPTION = `Mint ${PROJECT_ARG[2]} tokens with id ${PROJECT_ARG[1]} to address ${PROJECT_ARG[0]}`;
 
 module.exports = {
   networkConfig,
@@ -34,5 +40,5 @@ module.exports = {
   PROJECT_ARG,
   developmentChains,
   frontEndAddresses,
-  frontEndAbi
+  frontEndAbi,
 };

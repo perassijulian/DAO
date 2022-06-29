@@ -32,8 +32,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -52,7 +51,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\Governor.sol": {
-      "lastModificationDate": 1655490591858,
+      "lastModificationDate": 1656452071741,
       "contentHash": "3b010e281b1e40085e4e028370fce27e",
       "sourceName": "@openzeppelin/contracts/governance/Governor.sol",
       "solcConfig": {
@@ -82,8 +81,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -107,7 +105,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\extensions\\GovernorCountingSimple.sol": {
-      "lastModificationDate": 1655490591868,
+      "lastModificationDate": 1656452071817,
       "contentHash": "02b1526768c0ab245c630eb5a6b160fc",
       "sourceName": "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol",
       "solcConfig": {
@@ -137,8 +135,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -152,7 +149,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\extensions\\GovernorSettings.sol": {
-      "lastModificationDate": 1655490591879,
+      "lastModificationDate": 1656452071876,
       "contentHash": "2c6e87fa9b63c7ef8579eb4ae937d4c2",
       "sourceName": "@openzeppelin/contracts/governance/extensions/GovernorSettings.sol",
       "solcConfig": {
@@ -182,8 +179,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -197,7 +193,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\extensions\\GovernorTimelockControl.sol": {
-      "lastModificationDate": 1655490591885,
+      "lastModificationDate": 1656452071910,
       "contentHash": "d75bd1fe3635665c9468947aa4c13bd5",
       "sourceName": "@openzeppelin/contracts/governance/extensions/GovernorTimelockControl.sol",
       "solcConfig": {
@@ -227,8 +223,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -244,7 +239,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\extensions\\GovernorVotes.sol": {
-      "lastModificationDate": 1655490591889,
+      "lastModificationDate": 1656452071926,
       "contentHash": "d5ec18eb16b8452e749ee7d3aaa304b1",
       "sourceName": "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol",
       "solcConfig": {
@@ -274,8 +269,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -290,7 +284,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\extensions\\GovernorVotesQuorumFraction.sol": {
-      "lastModificationDate": 1655490591895,
+      "lastModificationDate": 1656452071954,
       "contentHash": "b346cb21204465106e3d5ea7b6264ee9",
       "sourceName": "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol",
       "solcConfig": {
@@ -320,8 +314,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -335,7 +328,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721Receiver.sol": {
-      "lastModificationDate": 1655490592051,
+      "lastModificationDate": 1656452073572,
       "contentHash": "c22d4395e33763de693fd440c6fd10e1",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
@@ -365,8 +358,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -378,7 +370,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\IERC1155Receiver.sol": {
-      "lastModificationDate": 1655490591965,
+      "lastModificationDate": 1656452073053,
       "contentHash": "9f8822b72fe2702979e40160cb6d9636",
       "sourceName": "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
       "solcConfig": {
@@ -408,8 +400,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -423,7 +414,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\ECDSA.sol": {
-      "lastModificationDate": 1655490591030,
+      "lastModificationDate": 1656452070505,
       "contentHash": "482bcc512029ecf51ca4ae85cf4667c7",
       "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
       "solcConfig": {
@@ -453,8 +444,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -468,7 +458,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\draft-EIP712.sol": {
-      "lastModificationDate": 1655490590934,
+      "lastModificationDate": 1656452070313,
       "contentHash": "161aae4dc1450371d0f324488f66a9cf",
       "sourceName": "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol",
       "solcConfig": {
@@ -498,8 +488,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -513,7 +502,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {
-      "lastModificationDate": 1655490591631,
+      "lastModificationDate": 1656452070850,
       "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
       "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
       "solcConfig": {
@@ -543,8 +532,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -558,7 +546,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\math\\SafeCast.sol": {
-      "lastModificationDate": 1655490592162,
+      "lastModificationDate": 1656452074476,
       "contentHash": "cd91252bfcbee6eaba8f5144f504583c",
       "sourceName": "@openzeppelin/contracts/utils/math/SafeCast.sol",
       "solcConfig": {
@@ -588,8 +576,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -601,7 +588,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\structs\\DoubleEndedQueue.sol": {
-      "lastModificationDate": 1655490590922,
+      "lastModificationDate": 1656452070283,
       "contentHash": "1252685551a5afdb6005499e0f549eff",
       "sourceName": "@openzeppelin/contracts/utils/structs/DoubleEndedQueue.sol",
       "solcConfig": {
@@ -631,8 +618,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -646,7 +632,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
-      "lastModificationDate": 1655490590742,
+      "lastModificationDate": 1656452069768,
       "contentHash": "ad714a6368ee7d43cded6bbe8af0b155",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
@@ -676,8 +662,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -689,7 +674,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
-      "lastModificationDate": 1655490590830,
+      "lastModificationDate": 1656452070024,
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -719,8 +704,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -732,7 +716,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\Timers.sol": {
-      "lastModificationDate": 1655490592197,
+      "lastModificationDate": 1656452074744,
       "contentHash": "ae135102abee8b2fc88eed09a40cdb4c",
       "sourceName": "@openzeppelin/contracts/utils/Timers.sol",
       "solcConfig": {
@@ -762,8 +746,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -775,7 +758,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\IGovernor.sol": {
-      "lastModificationDate": 1655490592077,
+      "lastModificationDate": 1656452073794,
       "contentHash": "78a871d820f3a4ae7ba2fe1604eae259",
       "sourceName": "@openzeppelin/contracts/governance/IGovernor.sol",
       "solcConfig": {
@@ -805,8 +788,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -820,7 +802,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol": {
-      "lastModificationDate": 1655490591990,
+      "lastModificationDate": 1656452073152,
       "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
       "solcConfig": {
@@ -850,8 +832,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -863,7 +844,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
-      "lastModificationDate": 1655490592192,
+      "lastModificationDate": 1656452074672,
       "contentHash": "9c54c6c065d9e590fdcdd72c451425b9",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
@@ -893,8 +874,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -906,7 +886,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\extensions\\IGovernorTimelock.sol": {
-      "lastModificationDate": 1655490592092,
+      "lastModificationDate": 1656452073842,
       "contentHash": "eebb17e144c4fd58549d815db19552da",
       "sourceName": "@openzeppelin/contracts/governance/extensions/IGovernorTimelock.sol",
       "solcConfig": {
@@ -936,8 +916,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -951,7 +930,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\TimelockController.sol": {
-      "lastModificationDate": 1655490592194,
+      "lastModificationDate": 1656452074722,
       "contentHash": "973bd5531bb5ead6f93625277d15e5bd",
       "sourceName": "@openzeppelin/contracts/governance/TimelockController.sol",
       "solcConfig": {
@@ -981,8 +960,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -998,7 +976,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\access\\AccessControl.sol": {
-      "lastModificationDate": 1655490590681,
+      "lastModificationDate": 1656452069612,
       "contentHash": "08101487003fda67e21e6d2cfe35bb2e",
       "sourceName": "@openzeppelin/contracts/access/AccessControl.sol",
       "solcConfig": {
@@ -1028,8 +1006,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -1046,7 +1023,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\access\\IAccessControl.sol": {
-      "lastModificationDate": 1655490591898,
+      "lastModificationDate": 1656452071969,
       "contentHash": "57c84298234411cea19c7c284d86be8b",
       "sourceName": "@openzeppelin/contracts/access/IAccessControl.sol",
       "solcConfig": {
@@ -1076,8 +1053,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -1089,7 +1065,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\governance\\utils\\IVotes.sol": {
-      "lastModificationDate": 1655490592108,
+      "lastModificationDate": 1656452073943,
       "contentHash": "a036d40989f21d08bb990e68d0088fa1",
       "sourceName": "@openzeppelin/contracts/governance/utils/IVotes.sol",
       "solcConfig": {
@@ -1119,8 +1095,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -1132,7 +1107,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\ERC20Votes.sol": {
-      "lastModificationDate": 1655490591734,
+      "lastModificationDate": 1656452071150,
       "contentHash": "d750921452f3bf2ab170f55cf4f5dc71",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol",
       "solcConfig": {
@@ -1162,8 +1137,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -1181,7 +1155,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\draft-ERC20Permit.sol": {
-      "lastModificationDate": 1655490590964,
+      "lastModificationDate": 1656452070365,
       "contentHash": "3c98f8ccc741d97ece615ce32d638d4c",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol",
       "solcConfig": {
@@ -1211,8 +1185,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -1230,7 +1203,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
-      "lastModificationDate": 1655490592121,
+      "lastModificationDate": 1656452074156,
       "contentHash": "339b9793dcbd7b5d55af725ef47de74c",
       "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
       "solcConfig": {
@@ -1260,8 +1233,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -1273,7 +1245,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\draft-IERC20Permit.sol": {
-      "lastModificationDate": 1655490591016,
+      "lastModificationDate": 1656452070459,
       "contentHash": "fb77f144244b9ab12533aa6ce85ef8c5",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
       "solcConfig": {
@@ -1303,8 +1275,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -1316,7 +1287,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
-      "lastModificationDate": 1655490591681,
+      "lastModificationDate": 1656452070999,
       "contentHash": "a9d2146925da52142435d3bb8df53c3c",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
@@ -1346,8 +1317,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -1363,7 +1333,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1655490590837,
+      "lastModificationDate": 1656452070045,
       "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
@@ -1393,8 +1363,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -1406,7 +1375,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
-      "lastModificationDate": 1655490592006,
+      "lastModificationDate": 1656452073256,
       "contentHash": "ad7c2d0af148c8f9f097d65deeb4da6b",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
@@ -1436,8 +1405,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [],
@@ -1449,7 +1417,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\IERC20Metadata.sol": {
-      "lastModificationDate": 1655490592011,
+      "lastModificationDate": 1656452073294,
       "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
@@ -1479,8 +1447,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -1524,8 +1491,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -1539,7 +1505,7 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
-      "lastModificationDate": 1655490592130,
+      "lastModificationDate": 1656452074253,
       "contentHash": "8398972af73b4e9e5ff3b31cad86234f",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -1569,8 +1535,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -1584,8 +1549,8 @@
       ]
     },
     "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\contracts\\Projects.sol": {
-      "lastModificationDate": 1655734463272,
-      "contentHash": "e03d60f71ebf24d30c2b7cdcd78fb029",
+      "lastModificationDate": 1656460729303,
+      "contentHash": "3f868971fb30037da633c56538ba66d0",
       "sourceName": "contracts/Projects.sol",
       "solcConfig": {
         "version": "0.8.8",
@@ -1614,12 +1579,12 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
-        "@openzeppelin/contracts/access/Ownable.sol"
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/token/ERC1155/ERC1155.sol"
       ],
       "versionPragmas": [
         "^0.8.8"
@@ -1659,8 +1624,7 @@
           },
           "metadata": {
             "useLiteralContent": true
-          },
-          "libraries": {}
+          }
         }
       },
       "imports": [
@@ -1671,6 +1635,143 @@
       ],
       "artifacts": [
         "GovernanceToken"
+      ]
+    },
+    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\ERC1155.sol": {
+      "lastModificationDate": 1656452070589,
+      "contentHash": "792473360274d02eed0fe4c691d67d16",
+      "sourceName": "@openzeppelin/contracts/token/ERC1155/ERC1155.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./IERC1155.sol",
+        "./IERC1155Receiver.sol",
+        "./extensions/IERC1155MetadataURI.sol",
+        "../../utils/Address.sol",
+        "../../utils/Context.sol",
+        "../../utils/introspection/ERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC1155"
+      ]
+    },
+    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\IERC1155.sol": {
+      "lastModificationDate": 1656452072780,
+      "contentHash": "59e1bc5713fdebc7f821dc52f4d3e0ef",
+      "sourceName": "@openzeppelin/contracts/token/ERC1155/IERC1155.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../../utils/introspection/IERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1155"
+      ]
+    },
+    "C:\\Users\\Julian\\Web3\\dao\\blockchain-server\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\extensions\\IERC1155MetadataURI.sol": {
+      "lastModificationDate": 1656452072932,
+      "contentHash": "9148c2e10c4efb12c71a7f080da5559b",
+      "sourceName": "@openzeppelin/contracts/token/ERC1155/extensions/IERC1155MetadataURI.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 1000
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "../IERC1155.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1155MetadataURI"
       ]
     }
   }

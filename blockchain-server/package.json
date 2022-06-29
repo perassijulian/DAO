@@ -13,5 +13,16 @@
     "hardhat-deploy": "^0.11.10",
     "dotenv": "^16.0.1",
     "hardhat": "^2.9.9"
-  }
+  },
+  "version": "1.0.0",
+  "main": "hardhat.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
