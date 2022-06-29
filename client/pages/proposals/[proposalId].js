@@ -1,10 +1,34 @@
-import { CopyButton, Typography, useNotification } from "web3uikit";
+import { useState } from "react";
+import { CodeArea, CopyButton, Typography, useNotification } from "web3uikit";
 import Navbar from "../../components/Navbar";
 import { getAllProposalIds } from "../../utils/getAllProposalIds";
+import { getContractSigned } from "../../utils/getContract";
 import shortenId from "../../utils/shortenId";
 
 const Proposal = ({ data }) => {
+  const [showCalldata, setShowCalldata] = useState(false);
+  const [calldataToShow, setCalldataToShow] = useState("");
   const notify = useNotification();
+
+  const decodeCalldata = async (calldata, i) => {
+    const { provider, contract } = await getContractSigned("projects");
+    const decodedCalldata = await contract.interface.decodeFunctionData(
+      "mint",
+      calldata
+    );
+    console.log(decodedCalldata);
+    setCalldataToShow(
+      `ACCOUNT WHERE THE MINT IS GOING ${
+        decodedCalldata[0]
+      } // AMOUNT THAT IS GOING TO BE MINTED: ${decodedCalldata[1].toString()} // EXTRA DATA (0x means nothing): ${
+        decodedCalldata[2]
+      } // YOU CAN CHECK THE METADATA THATS GOING TO CONTAIN THE TOKEN AT: https://ipfs.io/ipfs/${
+        decodedCalldata[3]
+      }`
+    );
+    setShowCalldata(true);
+  };
+
   return (
     <div className="flex flex-col items-center">
       <Navbar />
@@ -32,43 +56,60 @@ const Proposal = ({ data }) => {
         <Typography variant="body18">{data.deadline}</Typography>
         <div>Calldatas</div>
         <div>
-          <Typography variant="body18">
-            {data.calldatas[0].slice(0, 25)}
-          </Typography>
-          <CopyButton
-            text={data.calldatas[0]}
-            revertIn={1500}
-            onCopy={() =>
-              notify({
-                type: "success",
-                message: "Complete calldata copied to clipboard",
-                title: "New Notification",
-                position: "topR",
-              })
-            }
-          />
+          {data.calldatas.map((calldata) => (
+            <div>
+              <Typography variant="body18">{calldata.slice(0, 25)}</Typography>
+              <CopyButton
+                text={calldata}
+                revertIn={1500}
+                onCopy={() =>
+                  notify({
+                    type: "success",
+                    message: "Complete calldata copied to clipboard",
+                    title: "New Notification",
+                    position: "topR",
+                  })
+                }
+              />
+            </div>
+          ))}
         </div>
         <div>Targets</div>
         <div>
-          <Typography variant="body18">
-            {data.targets[0].slice(0, 24)}
-          </Typography>
-          <CopyButton
-            text={data.targets[0]}
-            revertIn={1500}
-            onCopy={() =>
-              notify({
-                type: "success",
-                message: "Complete address copied to clipboard",
-                title: "New Notification",
-                position: "topR",
-              })
-            }
-          />
+          {data.targets.map((target) => (
+            <div>
+              <Typography variant="body18">{target.slice(0, 24)}</Typography>
+              <CopyButton
+                text={target}
+                revertIn={1500}
+                onCopy={() =>
+                  notify({
+                    type: "success",
+                    message: "Complete address copied to clipboard",
+                    title: "New Notification",
+                    position: "topR",
+                  })
+                }
+              />
+            </div>
+          ))}
         </div>
       </div>
       <div className="bg-red-100 mt-4 p-3 w-2/4">
-      <h2>Calldata:</h2>
+        {data.calldatas.map((calldata, i) => (
+          <div className="mb-4">
+            <div className="flex justify-between">
+              <h2>Calldata:</h2>
+              <button
+                className="bg-green-500 px-2 rounded-sm"
+                onClick={() => decodeCalldata(calldata)}
+              >
+                Decode
+              </button>
+            </div>
+            {showCalldata && <p>{calldataToShow}</p>}
+          </div>
+        ))}
       </div>
     </div>
   );

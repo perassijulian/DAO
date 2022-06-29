@@ -36,7 +36,7 @@ const CreateProject = () => {
       const added = await client.add(file, {
         progress: (prog) => console.log(`received: ${prog}`),
       });
-      const url = `ipfs://${added.path}`;
+      const url = `https://ipfs.io/ipfs/${added.path}`;
       setFileUrl(url);
     } catch (error) {
       handleNewNotification("error", error.message);
