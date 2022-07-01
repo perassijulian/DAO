@@ -1,44 +1,47 @@
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import Link from 'next/link'
+import Link from "next/link";
 import { useState } from "react";
-import { Table, useNotification } from "web3uikit";
+import { useNotification } from "web3uikit";
 import checkIfMember from "../utils/checkIfMember";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
 
 const ProposalsTable = ({ proposals, action }) => {
   return (
-    <Table
-      key="table"
-      columnsConfig="100px 4fr 1fr 1fr 80px"
-      data={proposals.map((p) => {
+    <div className="p-4 border-gray-300 rounded-xl border">
+      <div className="grid grid-cols-12 font-bold border-b-gray-300 border-b-2 pb-2">
+        <div className="col-span-2">Proposal Id</div>
+        <div className="col-span-6">Description</div>
+        <div>Value</div>
+        <div className="col-span-2">Action</div>
+        <div></div>
+      </div>
+      {proposals.map((p) => {
         const button =
           action === "vote" ? (
             <VotingButton key="vote" proposalId={p.proposalId} />
           ) : (
             <ActionButton key="action" proposal={p} action={action} />
           );
-        return [
-          shortenId(p.proposalId),
-          p.description,
-          p.values[0],
-          button,
-          <Link href={`/proposals/${p.proposalId}`}><a>Details</a></Link>,
-        ];
+        return (
+          <div className="grid grid-cols-12 mt-4">
+            <div className="col-span-2">{shortenId(p.proposalId)}</div>
+            <div className="col-span-6">{p.description}</div>
+            <div>{p.values[0]}</div>
+            <div className="col-span-2">{button}</div>
+            <div>
+              <Link href={`/proposals/${p.proposalId}`}>
+                <a>Details</a>
+              </Link>
+            </div>
+          </div>
+        );
       })}
-      header={[
-        <span key="id">ID</span>,
-        <span key="description">Description</span>,
-        <span key="value">Value</span>,
-        <span key="vote">Vote</span>,
-        <span key="details"></span>,
-      ]}
-      isColumnSortable={[true, false, true, false, false]}
-      maxPages={5}
-      onPageNumberChanged={function noRefCheck() {}}
-      pageSize={5}
-    />
+      {proposals.length === 0 && (
+        <p className="text-center pt-4">No proposals to display</p>
+      )}
+    </div>
   );
 };
 
@@ -106,7 +109,7 @@ const ActionButton = ({ action, proposal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useNotification();
-  useRouter
+  useRouter;
 
   const handleNewNotification = (type, message) => {
     dispatch({
@@ -154,7 +157,7 @@ const ActionButton = ({ action, proposal }) => {
           await executeTx.wait(1);
           break;
         case "DETAILS":
-          router.push('/')
+          router.push("/");
           return;
         default:
           break;
