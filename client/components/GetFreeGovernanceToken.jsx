@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 import { getContractSigned } from "../utils/getContract";
-import { useNotification } from "web3uikit";
 import checkIfMember from "../utils/checkIfMember";
 import { useEffect, useState } from "react";
 import contractAddresses from "../constants/contractAddresses.json";
@@ -9,7 +8,6 @@ const GetFreeGovernanceToken = () => {
   const tokenAddress = contractAddresses["4"].governorToken;
   const [isMember, setIsMember] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useNotification();
 
   const isMemberChecking = async () => {
     setIsMember(await checkIfMember());
@@ -19,28 +17,16 @@ const GetFreeGovernanceToken = () => {
     isMemberChecking();
   }, []);
 
-  const handleNewNotification = (type, message) => {
-    dispatch({
-      type,
-      message,
-      title: "New Notification",
-      icon: "bell",
-      position: "topR",
-    });
-  };
-
   const getDaoToken = async () => {
-    if (isMember) {
-      handleNewNotification("error", "You already have DAO tokens");
-    }
     setIsLoading(true);
+    alert("You already have DAO tokens");
     try {
       const { provider, contract } = await getContractSigned("governorToken");
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
-        handleNewNotification("error", "Please switch to Rinkeby network in your metamask account");
         setIsLoading(false);
-        return
+        alert("Please switch to Rinkeby network in your metamask account");
+        return;
       }
 
       //get contract from dao wallet with its secret key
@@ -61,13 +47,10 @@ const GetFreeGovernanceToken = () => {
       });
       await txETH.wait(1);
 
-      handleNewNotification(
-        "success",
-        "You got 200DAO tokens and some ETH to pay gas"
-      );
       setIsMember(true);
+      alert("You got 200DAO tokens and some ETH to pay gas");
     } catch (mainError) {
-      handleNewNotification("error", mainError.message);
+      alert(mainError.message);
     }
     setIsLoading(false);
   };

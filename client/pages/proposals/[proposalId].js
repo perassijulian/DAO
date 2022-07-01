@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CodeArea, CopyButton, Typography, useNotification } from "web3uikit";
 import Navbar from "../../components/Navbar";
 import { getAllProposalIds } from "../../utils/getAllProposalIds";
 import { getContractSigned } from "../../utils/getContract";
@@ -8,7 +7,6 @@ import shortenId from "../../utils/shortenId";
 const Proposal = ({ data }) => {
   const [showCalldata, setShowCalldata] = useState(false);
   const [calldataToShow, setCalldataToShow] = useState("");
-  const notify = useNotification();
 
   const decodeCalldata = async (calldata, i) => {
     const { provider, contract } = await getContractSigned("projects");
@@ -35,63 +33,21 @@ const Proposal = ({ data }) => {
       <h1 className="font-bold text-3xl mt-6">PROPOSAL DETAILS</h1>
       <div className="grid grid-cols-2 bg-red-100 p-3 w-2/4 mt-4 gap-3">
         <div>Proposal ID</div>
-        <div>
-          <Typography variant="body18">{shortenId(data.proposalId)}</Typography>
-          <CopyButton
-            text={data.proposalId}
-            revertIn={1500}
-            onCopy={() =>
-              notify({
-                type: "success",
-                message: "Complete ID copied to clipboard",
-                title: "New Notification",
-                position: "topR",
-              })
-            }
-          />
-        </div>
+        <p className="font-bold text-gray-700">{shortenId(data.proposalId)}</p>
         <div>Description</div>
-        <Typography variant="body18">{data.description}</Typography>
+        <p className="font-bold text-gray-700">{data.description}</p>
         <div>Deadline</div>
-        <Typography variant="body18">{data.deadline}</Typography>
+        <p className="font-bold text-gray-700">{data.deadline}</p>
         <div>Calldatas</div>
         <div>
           {data.calldatas.map((calldata) => (
-            <div>
-              <Typography variant="body18">{calldata.slice(0, 25)}</Typography>
-              <CopyButton
-                text={calldata}
-                revertIn={1500}
-                onCopy={() =>
-                  notify({
-                    type: "success",
-                    message: "Complete calldata copied to clipboard",
-                    title: "New Notification",
-                    position: "topR",
-                  })
-                }
-              />
-            </div>
+            <p className="font-bold text-gray-700">{calldata.slice(0, 25)}</p>
           ))}
         </div>
         <div>Targets</div>
         <div>
           {data.targets.map((target) => (
-            <div>
-              <Typography variant="body18">{target.slice(0, 24)}</Typography>
-              <CopyButton
-                text={target}
-                revertIn={1500}
-                onCopy={() =>
-                  notify({
-                    type: "success",
-                    message: "Complete address copied to clipboard",
-                    title: "New Notification",
-                    position: "topR",
-                  })
-                }
-              />
-            </div>
+            <p className="font-bold text-gray-700">{target.slice(0, 24)}</p>
           ))}
         </div>
       </div>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { TextArea, useNotification, Input } from "web3uikit";
 import { create as ipfsHttpClient } from "ipfs-http-client";
 import axios from "axios";
 import checkIfMember from "../utils/checkIfMember";
@@ -16,18 +15,7 @@ const CreateProject = () => {
     name: "",
     description: "",
   });
-  const dispatch = useNotification();
   const router = useRouter();
-
-  const handleNewNotification = (type, message) => {
-    dispatch({
-      type,
-      message,
-      title: "New Notification",
-      icon: "bell",
-      position: "topR",
-    });
-  };
 
   const handleChange = async (e) => {
     setIsLoading(true);
@@ -39,7 +27,7 @@ const CreateProject = () => {
       const url = `https://ipfs.io/ipfs/${added.path}`;
       setFileUrl(url);
     } catch (error) {
-      handleNewNotification("error", error.message);
+      alert(error.message);
     }
     setIsLoading(false);
   };
@@ -55,7 +43,7 @@ const CreateProject = () => {
       const added = await client.add(data);
       return added.path;
     } catch (error) {
-      handleNewNotification("error", error.message);
+      alert(error.message);
     }
   };
 
@@ -63,34 +51,27 @@ const CreateProject = () => {
     setIsLoading(true);
     const { name, description } = formInput;
     if (!name || name.length < 15) {
-      handleNewNotification(
-        "error",
-        "Please write a title with more than 15 characters"
-      );
       setIsLoading(false);
+      alert("Please write a title with more than 15 characters");
       return;
     }
     if (!description || description.length < 100) {
-      handleNewNotification(
-        "error",
-        "Please write a description with more than 100 characters"
-      );
       setIsLoading(false);
+      alert("Please write a description with more than 100 characters");
       return;
     }
     if (!fileUrl) {
-      handleNewNotification("error", "Please select a file");
       setIsLoading(false);
+      alert("Please select a file");
       return;
     }
 
     const isMember = await checkIfMember();
     if (!isMember) {
-      handleNewNotification(
-        "error",
+      setIsLoading(false);
+      alert(
         "You need to have at least 1 governance token to be able to create a proposal"
       );
-      setIsLoading(false);
       return;
     }
 
@@ -106,8 +87,8 @@ const CreateProject = () => {
 
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
-        handleNewNotification("error", "Please change to Rinkeby network");
         setIsLoading(false);
+        alert("Please change to Rinkeby network");
         return;
       }
 
@@ -137,19 +118,15 @@ const CreateProject = () => {
       proposal["deadline"] = deadline.toString();
 
       await axios.post("/api/proposalId", proposal);
-
-      handleNewNotification(
-        "success",
-        `You just made a new proposal with ID: ${shortenId(proposalId)}!`
-      );
       setIsLoading(false);
+      alert(`You just made a new proposal with ID: ${shortenId(proposalId)}!`);
 
       setTimeout(() => {
         router.replace("/proposals/vote");
       }, 3500);
     } catch (error) {
-      handleNewNotification("error", error.message);
       setIsLoading(false);
+      alert(error.message);
     }
   };
 
@@ -159,28 +136,23 @@ const CreateProject = () => {
       <div className="bg-red-100 w-2/4 flex flex-col items-center mt-4">
         <input type="file" className="mt-6" onChange={handleChange} />
         <div className="w-11/12 mt-6">
-          <Input
-            label="Title"
-            onBlur={function noRefCheck() {}}
+          <input
+            type="text"
             onChange={(e) =>
               setFormInput({ ...formInput, name: e.target.value })
             }
-            style={{
-              backgroundColor: "white",
-            }}
-            width="100%"
+            value={formInput.name}
+            placeholder="Title"
+            className="p-3 w-full rounded-xl border border-gray-300 focus:outline-none focus:border-blue-500 hover:border-blue-500"
           />
         </div>
         <div className="w-11/12 my-6">
-          <TextArea
-            label="Description"
-            onBlur={function noRefCheck() {}}
+          <textarea
             onChange={(e) => {
               setFormInput({ ...formInput, description: e.target.value });
             }}
-            placeholder={formInput.description}
-            value={formInput.description}
-            width="100%"
+            placeholder="Description"
+            className="p-3 h-40 w-full rounded-xl border border-gray-300 focus:outline-none focus:border-blue-500 hover:border-blue-500"
           />
         </div>
         <button

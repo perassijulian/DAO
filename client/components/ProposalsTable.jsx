@@ -2,7 +2,6 @@ import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useState } from "react";
-import { useNotification } from "web3uikit";
 import checkIfMember from "../utils/checkIfMember";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
@@ -46,28 +45,14 @@ const ProposalsTable = ({ proposals, action }) => {
 };
 
 const VotingButton = ({ proposalId }) => {
-  const dispatch = useNotification();
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleNewNotification = (type, message) => {
-    dispatch({
-      type,
-      message,
-      title: "New Notification",
-      icon: "bell",
-      position: "topR",
-    });
-  };
 
   const castVote = async (voteWay, proposalId) => {
     setIsLoading(true);
     const isMember = await checkIfMember();
     if (!isMember) {
-      handleNewNotification(
-        "error",
-        "You need to have at least 1 governance token to be able to vote"
-      );
       setIsLoading(false);
+      alert("You need to have at least 1 governance token to be able to vote");
       return;
     }
     try {
@@ -77,17 +62,14 @@ const VotingButton = ({ proposalId }) => {
       const voted =
         voteWay == 0 ? "DECLINE" : voteWay == 1 ? "APPROVE" : "ABSTAIN on";
       const id = shortenId(proposalId);
-      handleNewNotification(
-        "success",
-        `You succesfully voted to ${voted} project ${id}`
-      );
+      alert(`You succesfully voted to ${voted} project ${id}`);
     } catch (mainError) {
       try {
         let e = mainError.message.split("execution reverted: ");
         e = e[1].split('"');
-        handleNewNotification("error", e[0]);
+        alert(e[0])
       } catch (error) {
-        handleNewNotification("error", mainError.message);
+        alert(mainError.message)
       }
     }
     setIsLoading(false);
@@ -108,28 +90,14 @@ const VotingButton = ({ proposalId }) => {
 const ActionButton = ({ action, proposal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const dispatch = useNotification();
-  useRouter;
-
-  const handleNewNotification = (type, message) => {
-    dispatch({
-      type,
-      message,
-      title: "New Notification",
-      icon: "bell",
-      position: "topR",
-    });
-  };
-
   const handleAction = async () => {
     setIsLoading(true);
     const isMember = await checkIfMember();
     if (!isMember) {
-      handleNewNotification(
-        "error",
+      setIsLoading(false);
+      alert(
         "You need to have at least 1 governance token to be able to do this"
       );
-      setIsLoading(false);
       return;
     }
 
@@ -162,8 +130,8 @@ const ActionButton = ({ action, proposal }) => {
         default:
           break;
       }
-      handleNewNotification(
-        "success",
+
+      alert(
         `You succesfully ${action} project ${shortenId(proposal.proposalId)}`
       );
       setTimeout(() => {
@@ -173,9 +141,9 @@ const ActionButton = ({ action, proposal }) => {
       try {
         let e = mainError.message.split("execution reverted: ");
         e = e[1].split('"');
-        handleNewNotification("error", e[0]);
+        alert(e[0]);
       } catch (error) {
-        handleNewNotification("error", mainError.message);
+        alert(mainError.message);
       }
     }
     setIsLoading(false);
