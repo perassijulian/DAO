@@ -13,7 +13,7 @@ const Vote = ({ proposals }) => {
         setFilteredProposals(res);
         setIsLoading(false);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
 
@@ -27,10 +27,16 @@ const Vote = ({ proposals }) => {
       </div>
     );
 
-    if (!isLoading && filteredProposals[0].concat(filteredProposals[1]).length === 0)
+  if (
+    !isLoading &&
+    filteredProposals[0].concat(filteredProposals[1]).length === 0
+  )
     return (
       <div className="flex flex-col items-center">
-        <div className="mt-8 text-xl">There's no proposals open to vote. You can ADD a new project or come back later!</div>
+        <div className="mt-8 text-xl">
+          There's no proposals open to vote. You can ADD a new project or come
+          back later!
+        </div>
       </div>
     );
 
@@ -43,7 +49,10 @@ const Vote = ({ proposals }) => {
             proposals={filteredProposals[0].concat(filteredProposals[1])}
             action="vote"
           />
-          <div className="text-red-500 text-center w-full">Remember that you need 20seconds between propose and to be able to vote</div>
+          <div className="text-red-500 text-center w-full">
+            Remember that you need 20seconds between propose and to be able to
+            vote
+          </div>
         </div>
       </div>
     </div>
@@ -51,9 +60,7 @@ const Vote = ({ proposals }) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch("https://dao-perassijulian.vercel.app/api/proposalId");
-  const proposals = await res.json();
-
+  const proposals = getAllProposals();
   return {
     props: {
       proposals,

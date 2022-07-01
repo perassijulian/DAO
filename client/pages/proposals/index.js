@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ProposalsTable from "../../components/ProposalsTable";
 import filterProposals from "../../utils/filterProposals";
+import { getAllProposals } from "../../utils/getProposals";
 
 const Proposals = ({ proposals }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,9 +66,7 @@ const Proposals = ({ proposals }) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch("https://dao-perassijulian.vercel.app/api/proposalId");
-  const proposals = await res.json();
-
+  const proposals = getAllProposals();
   return {
     props: {
       proposals,

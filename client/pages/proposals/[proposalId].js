@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { getAllProposalIds } from "../../utils/getAllProposalIds";
+import { getAllProposalIds, getProposal } from "../../utils/getProposals";
 import { getContractSigned } from "../../utils/getContract";
 import shortenId from "../../utils/shortenId";
-import {useRouter} from "next/router";
 
 const Proposal = ({ data }) => {
   const [showCalldata, setShowCalldata] = useState(false);
@@ -70,15 +69,8 @@ const Proposal = ({ data }) => {
   );
 };
 
-export default Proposal;
-
 export async function getStaticProps({ params }) {
-  console.log('fetching..')
-  const router = useRouter();
-  const res = await fetch(
-    `https://dao-perassijulian.vercel.app/api/proposalId/${params.proposalId}`
-  );
-  const data = await res.json();
+  const data = getProposal(params.proposalId);
   return {
     props: {
       data,
@@ -93,3 +85,5 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
+
+export default Proposal;
