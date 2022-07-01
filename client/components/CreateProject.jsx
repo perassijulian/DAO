@@ -78,6 +78,7 @@ const CreateProject = () => {
     const hashIpfs = await uploadToIPFS();
 
     try {
+      console.log("Getting contracts..")
       const { provider, contract: governorContract } = await getContractSigned(
         "governor"
       );
@@ -85,6 +86,7 @@ const CreateProject = () => {
         "projects"
       );
 
+      console.log("Checking chain id..")
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
         setIsLoading(false);
@@ -104,6 +106,7 @@ const CreateProject = () => {
         description: formInput.name,
       };
 
+      console.log("Proposing..")
       const tx = await governorContract.propose(
         proposal.targets,
         proposal.values,
@@ -117,7 +120,9 @@ const CreateProject = () => {
       const deadline = await governorContract.proposalDeadline(proposalId);
       proposal["deadline"] = deadline.toString();
 
+      console.log("Posting on API..")
       await axios.post("/api/proposalId", proposal);
+      console.log("Posted succesfully.")
       setIsLoading(false);
       alert(`You just made a new proposal with ID: ${shortenId(proposalId)}!`);
 
@@ -160,6 +165,7 @@ const CreateProject = () => {
           onClick={() => {
             handlePropose();
           }}
+          disabled={isLoading}
         >
           {isLoading ? (
             <div className="animate-spin p-2 border-b-4 rounded-full w-2 h-2 border-white"></div>
