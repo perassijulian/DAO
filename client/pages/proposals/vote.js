@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ProposalsTable from "../../components/ProposalsTable";
 import filterProposals from "../../utils/filterProposals";
+import { getAllProposals } from "../../utils/getProposals";
 
 const Vote = ({ proposals }) => {
   const [isLoading, setIsLoading] = useState(true);
