@@ -5,12 +5,15 @@ import axios from "axios";
 import checkIfMember from "../utils/checkIfMember";
 import shortenId from "../utils/shortenId";
 import { getContractSigned } from "../utils/getContract";
+import Notification from "./Notification";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
 const CreateProject = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [fileUrl, setFileUrl] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [formInput, setFormInput] = useState({
     name: "",
     description: "",
@@ -18,6 +21,11 @@ const CreateProject = () => {
     amount: null,
   });
   const router = useRouter();
+
+  const notificate = (message) => {
+    setShowNotification(true);
+    setNotificationMessage(message);
+  };
 
   const handleChange = async (e) => {
     setIsLoading(true);
@@ -29,7 +37,7 @@ const CreateProject = () => {
       const url = `https://ipfs.io/ipfs/${added.path}`;
       setFileUrl(url);
     } catch (error) {
-      alert(error.message);
+      notificate(error.message);
     }
     setIsLoading(false);
   };
@@ -45,7 +53,7 @@ const CreateProject = () => {
       const added = await client.add(data);
       return added.path;
     } catch (error) {
-      alert(error.message);
+      notificate(error.message);
     }
   };
 
@@ -54,35 +62,35 @@ const CreateProject = () => {
     const { name, description, address, amount } = formInput;
     if (!name || name.length < 15) {
       setIsLoading(false);
-      alert("Please write a title with more than 15 characters");
+      notificate("Please write a title with more than 15 characters");
       return;
     }
     if (!address || address.length !== 42) {
       setIsLoading(false);
-      alert("Please add a valid address");
+      notificate("Please add a valid address");
       return;
     }
 
     if (!amount || amount < 0) {
       setIsLoading(false);
-      alert("Please add a valid amount of nfts to mint");
+      notificate("Please add a valid amount of nfts to mint");
       return;
     }
     if (!description || description.length < 100) {
       setIsLoading(false);
-      alert("Please write a description with more than 100 characters");
+      notificate("Please write a description with more than 100 characters");
       return;
     }
     if (!fileUrl) {
       setIsLoading(false);
-      alert("Please select a file");
+      notificate("Please select a file");
       return;
     }
 
     const isMember = await checkIfMember();
     if (!isMember) {
       setIsLoading(false);
-      alert(
+      notificate(
         "You need to have at least 1 governance token to be able to create a proposal"
       );
       return;
@@ -91,7 +99,6 @@ const CreateProject = () => {
     const hashIpfs = await uploadToIPFS();
 
     try {
-      console.log("Getting contracts..");
       const { provider, contract: governorContract } = await getContractSigned(
         "governor"
       );
@@ -99,11 +106,10 @@ const CreateProject = () => {
         "projects"
       );
 
-      console.log("Checking chain id..");
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
         setIsLoading(false);
-        alert("Please change to Rinkeby network");
+        notificate("Please change to Rinkeby network");
         return;
       }
 
@@ -119,7 +125,6 @@ const CreateProject = () => {
         description: formInput.name,
       };
 
-      console.log("Proposing..");
       const tx = await governorContract.propose(
         proposal.targets,
         proposal.values,
@@ -133,23 +138,30 @@ const CreateProject = () => {
       const deadline = await governorContract.proposalDeadline(proposalId);
       proposal["deadline"] = deadline.toString();
 
-      console.log("Posting on API..");
-      await axios.post("/api/proposalId", proposal);
-      console.log("Posted succesfully.");
+      await axios
+        .post("/api/proposalId", proposal)
+        .catch((axiosError) => console.log("axios error: ", axiosError));
       setIsLoading(false);
-      alert(`You just made a new proposal with ID: ${shortenId(proposalId)}!`);
+      notificate(`You just made a new proposal with ID: ${shortenId(proposalId)}!`);
 
       setTimeout(() => {
         router.replace("/proposals/vote");
       }, 3500);
     } catch (error) {
       setIsLoading(false);
-      alert(error.message);
+      notificate(error.message);
     }
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center relative overflow-x-hidden">
+      {
+        <Notification
+          show={showNotification}
+          setShow={setShowNotification}
+          message={notificationMessage}
+        />
+      }
       <h1 className="font-bold text-3xl mt-6">CREATE A NEW PROJECT</h1>
       <div className="bg-red-100 w-2/4 flex flex-col items-center mt-4">
         <input type="file" className="mt-4" onChange={handleChange} />

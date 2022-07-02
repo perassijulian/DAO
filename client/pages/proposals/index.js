@@ -65,7 +65,12 @@ const Proposals = ({ proposals }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
+  const { req, query, res, asPath, pathname } = context;
+  if (req) {
+    let host = req.headers.host;
+    console.log("host:", host);
+  }
   const proposals = getAllProposals();
   return {
     props: {
