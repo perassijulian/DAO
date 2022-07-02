@@ -138,9 +138,19 @@ const CreateProject = () => {
       const deadline = await governorContract.proposalDeadline(proposalId);
       proposal["deadline"] = deadline.toString();
 
-      await axios
-        .post("/api/proposalId", proposal)
-        .catch((axiosError) => console.log("axios error: ", axiosError));
+      const res = await fetch('/api/proposalId', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(proposal),
+      });
+      const data = await res.json();
+      console.log(data);
+
+      // await axios
+      //   .post("/api/proposalId", )
+      //   .catch((axiosError) => console.log("axios error: ", axiosError));
       setIsLoading(false);
       notificate(`You just made a new proposal with ID: ${shortenId(proposalId)}!`);
 
