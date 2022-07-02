@@ -1,7 +1,10 @@
-import fs from "fs";
+import connectToMongo from "./connectToMongo";
+import Proposal from "../models/proposalModel";
 
-export function getAllProposalIds() {
-  const proposals = JSON.parse(fs.readFileSync("./proposalsDB.json", "utf-8"));
+export async function getAllProposalIds() {
+  await connectToMongo();
+  const proposals = await Proposal.find({});
+
   return proposals.map((proposal) => {
     return {
       params: {
@@ -9,18 +12,4 @@ export function getAllProposalIds() {
       },
     };
   });
-}
-
-export function getAllProposals() {
-  return JSON.parse(fs.readFileSync("./proposalsDB.json", "utf-8"));
-}
-
-export function getProposal(proposalId) {
-  const proposals = JSON.parse(fs.readFileSync("./proposalsDB.json", "utf-8"));
-  for (let i = 0; i < proposals.length; i++) {
-    if (proposals[i].proposalId == proposalId) {
-      return proposals[i];
-    }
-  }
-  return [];
 }

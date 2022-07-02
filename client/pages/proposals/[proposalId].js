@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { getAllProposalIds, getProposal } from "../../utils/getProposals";
+import { getAllProposalIds } from "../../utils/getProposals";
 import { getContractSigned } from "../../utils/getContract";
+import connectToMongo from "../../utils/connectToMongo";
+import Proposal from "../../models/proposalModel";
 import shortenId from "../../utils/shortenId";
 
-const Proposal = ({ data }) => {
+const ProposalData = ({ data }) => {
+  console.log("LADA TA QUQE LLEGA AL COMPONENTE:", data);
   const [showCalldata, setShowCalldata] = useState(false);
   const [calldataToShow, setCalldataToShow] = useState("");
 
@@ -70,20 +73,23 @@ const Proposal = ({ data }) => {
 };
 
 export async function getStaticProps({ params }) {
-  const data = getProposal(params.proposalId);
+  await connectToMongo();
+  const data = await Proposal.find({ proposalId: params.proposalId });
+  console.log("LAdata:", data);
   return {
     props: {
-      data,
+      data: JSON.parse(JSON.stringify(data))[0],
     },
   };
 }
 
 export async function getStaticPaths() {
-  const paths = getAllProposalIds();
+  const paths = await getAllProposalIds();
+  console.log("paths:", paths);
   return {
     paths,
     fallback: false,
   };
 }
 
-export default Proposal;
+export default ProposalData;
