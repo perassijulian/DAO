@@ -147,9 +147,10 @@ const CreateProject = () => {
       );
       setIsLoading(false);
 
-      // setTimeout(() => {
-      //   router.replace("/proposals/vote");
-      // }, 3500);
+
+      setTimeout(() => {
+        router.replace("/proposals/vote");
+      }, 3500);
     } catch (error) {
       setIsLoading(false);
       notificate(error.message);
@@ -184,6 +185,7 @@ const CreateProject = () => {
             onChange={(e) => {
               setFormInput({ ...formInput, description: e.target.value });
             }}
+            value={formInput.description}
             placeholder="Description"
             className="p-3 h-40 w-full rounded-xl border border-gray-300 focus:outline-none focus:border-blue-500 hover:border-blue-500"
           />

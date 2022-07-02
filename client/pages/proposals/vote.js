@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import ProposalsTable from "../../components/ProposalsTable";
+import Proposal from "../../models/proposalModel";
+import connectToMongo from "../../utils/connectToMongo";
 import filterProposals from "../../utils/filterProposals";
-import { getAllProposals } from "../../utils/getProposals";
 
 const Vote = ({ proposals }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -69,10 +70,11 @@ const Vote = ({ proposals }) => {
 };
 
 export async function getStaticProps() {
-  const proposals = getAllProposals();
+  await connectToMongo();
+  const proposals = await Proposal.find({});
   return {
     props: {
-      proposals,
+      proposals: JSON.parse(JSON.stringify(proposals)),
     },
   };
 }

@@ -24,7 +24,10 @@ const ProposalsTable = ({ proposals, action }) => {
             <ActionButton key="action" proposal={p} action={action} />
           );
         return (
-          <div className="grid grid-cols-12 mt-4">
+          <div
+            className="grid grid-cols-12 mt-4"
+            key={`tablerow-${p.proposalId}`}
+          >
             <div className="col-span-2">{shortenId(p.proposalId)}</div>
             <div className="col-span-6">{p.description}</div>
             <div>{ethers.utils.formatEther(p.values[0])}</div>
@@ -67,9 +70,9 @@ const VotingButton = ({ proposalId }) => {
       try {
         let e = mainError.message.split("execution reverted: ");
         e = e[1].split('"');
-        alert(e[0])
+        alert(e[0]);
       } catch (error) {
-        alert(mainError.message)
+        alert(mainError.message);
       }
     }
     setIsLoading(false);

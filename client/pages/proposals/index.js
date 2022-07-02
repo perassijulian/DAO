@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import ProposalsTable from "../../components/ProposalsTable";
 import filterProposals from "../../utils/filterProposals";
-import { getAllProposals } from "../../utils/getProposals";
+import connectToMongo from "../../utils/connectToMongo";
+import Proposal from "../../models/proposalModel";
 
 const Proposals = ({ proposals }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,16 +66,12 @@ const Proposals = ({ proposals }) => {
   );
 };
 
-export async function getStaticProps(context) {
-  const { req, query, res, asPath, pathname } = context;
-  if (req) {
-    let host = req.headers.host;
-    console.log("host:", host);
-  }
-  const proposals = getAllProposals();
+export async function getStaticProps() {
+  await connectToMongo();
+  const proposals = await Proposal.find({});
   return {
     props: {
-      proposals,
+      proposals: JSON.parse(JSON.stringify(proposals)),
     },
   };
 }
