@@ -22,7 +22,6 @@ export default function handler(req, res) {
     // fs.writeFileSync("./proposalsDB.json", JSON.stringify(allProposals));
     console.log("POST/proposalId push: ", req.body);
     allProposals.push(req.body);
-    console.log("POST/proposalId writing: ", allProposals);
     fs.writeFileSync("./proposalsDB.json", JSON.stringify(allProposals));
   }
 

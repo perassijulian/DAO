@@ -27,7 +27,7 @@ const ProposalsTable = ({ proposals, action }) => {
           <div className="grid grid-cols-12 mt-4">
             <div className="col-span-2">{shortenId(p.proposalId)}</div>
             <div className="col-span-6">{p.description}</div>
-            <div>{p.values[0]}</div>
+            <div>{ethers.utils.formatEther(p.values[0])}</div>
             <div className="col-span-2">{button}</div>
             <div>
               <Link href={`/proposals/${p.proposalId}`}>
@@ -125,7 +125,7 @@ const ActionButton = ({ action, proposal }) => {
           await executeTx.wait(1);
           break;
         case "DETAILS":
-          router.push("/");
+          router.push(`/proposals/${proposal.proposalId}`);
           return;
         default:
           break;

@@ -50,9 +50,17 @@ const Vote = ({ proposals }) => {
             proposals={filteredProposals[0].concat(filteredProposals[1])}
             action="vote"
           />
+          <div className="text-red-500 text-center w-full mt-2">
+            Remember that you need 20 secs after adding a new proposal and to be
+            able to vote on it.
+          </div>
           <div className="text-red-500 text-center w-full">
-            Remember that you need 20seconds between propose and to be able to
-            vote
+            Voting time is around 15 mins. After that time - if the proposal is
+            approved - you will be able to queue it.
+          </div>
+          <div className="text-red-500 text-center w-full">
+            Once is queued, after 15 min you will be able to execute it. This
+            means, it will mint the nft to the address provided
           </div>
         </div>
       </div>

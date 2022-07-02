@@ -14,6 +14,8 @@ const CreateProject = () => {
   const [formInput, setFormInput] = useState({
     name: "",
     description: "",
+    address: "",
+    amount: null,
   });
   const router = useRouter();
 
@@ -49,10 +51,21 @@ const CreateProject = () => {
 
   const handlePropose = async () => {
     setIsLoading(true);
-    const { name, description } = formInput;
+    const { name, description, address, amount } = formInput;
     if (!name || name.length < 15) {
       setIsLoading(false);
       alert("Please write a title with more than 15 characters");
+      return;
+    }
+    if (!address || address.length !== 42) {
+      setIsLoading(false);
+      alert("Please add a valid address");
+      return;
+    }
+
+    if (!amount || amount < 0) {
+      setIsLoading(false);
+      alert("Please add a valid amount of nfts to mint");
       return;
     }
     if (!description || description.length < 100) {
@@ -78,7 +91,7 @@ const CreateProject = () => {
     const hashIpfs = await uploadToIPFS();
 
     try {
-      console.log("Getting contracts..")
+      console.log("Getting contracts..");
       const { provider, contract: governorContract } = await getContractSigned(
         "governor"
       );
@@ -86,7 +99,7 @@ const CreateProject = () => {
         "projects"
       );
 
-      console.log("Checking chain id..")
+      console.log("Checking chain id..");
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
         setIsLoading(false);
@@ -96,7 +109,7 @@ const CreateProject = () => {
 
       const calldataEncoded = projectsContract.interface.encodeFunctionData(
         "mint",
-        ["0xbf3f8D6a3aE5cfc144AA116896b82F3a87671F83", 2, [], hashIpfs]
+        [address, amount, [], hashIpfs]
       );
 
       const proposal = {
@@ -106,7 +119,7 @@ const CreateProject = () => {
         description: formInput.name,
       };
 
-      console.log("Proposing..")
+      console.log("Proposing..");
       const tx = await governorContract.propose(
         proposal.targets,
         proposal.values,
@@ -120,9 +133,9 @@ const CreateProject = () => {
       const deadline = await governorContract.proposalDeadline(proposalId);
       proposal["deadline"] = deadline.toString();
 
-      console.log("Posting on API..")
+      console.log("Posting on API..");
       await axios.post("/api/proposalId", proposal);
-      console.log("Posted succesfully.")
+      console.log("Posted succesfully.");
       setIsLoading(false);
       alert(`You just made a new proposal with ID: ${shortenId(proposalId)}!`);
 
@@ -139,8 +152,8 @@ const CreateProject = () => {
     <div className="flex flex-col items-center">
       <h1 className="font-bold text-3xl mt-6">CREATE A NEW PROJECT</h1>
       <div className="bg-red-100 w-2/4 flex flex-col items-center mt-4">
-        <input type="file" className="mt-6" onChange={handleChange} />
-        <div className="w-11/12 mt-6">
+        <input type="file" className="mt-4" onChange={handleChange} />
+        <div className="w-11/12 mt-4">
           <input
             type="text"
             onChange={(e) =>
@@ -151,7 +164,7 @@ const CreateProject = () => {
             className="p-3 w-full rounded-xl border border-gray-300 focus:outline-none focus:border-blue-500 hover:border-blue-500"
           />
         </div>
-        <div className="w-11/12 my-6">
+        <div className="w-11/12 my-4">
           <textarea
             onChange={(e) => {
               setFormInput({ ...formInput, description: e.target.value });
@@ -160,8 +173,28 @@ const CreateProject = () => {
             className="p-3 h-40 w-full rounded-xl border border-gray-300 focus:outline-none focus:border-blue-500 hover:border-blue-500"
           />
         </div>
+        <div className="flex gap-3 w-11/12">
+          <input
+            type="text"
+            onChange={(e) =>
+              setFormInput({ ...formInput, address: e.target.value })
+            }
+            value={formInput.address}
+            placeholder="Address to deposit NFTs"
+            className="p-3 w-full rounded-xl border border-gray-300 focus:outline-none focus:border-blue-500 hover:border-blue-500"
+          />
+          <input
+            type="text"
+            onChange={(e) =>
+              setFormInput({ ...formInput, amount: e.target.value })
+            }
+            value={formInput.amount}
+            placeholder="Amount of NFTs"
+            className="p-3 w-full rounded-xl border border-gray-300 focus:outline-none focus:border-blue-500 hover:border-blue-500"
+          />
+        </div>
         <button
-          className="bg-red-500 w-24 h-8 mb-4 rounded-md font-bold text-white flex items-center justify-center"
+          className="bg-red-500 w-40 h-8 my-4 rounded-md font-bold text-white flex items-center justify-center"
           onClick={() => {
             handlePropose();
           }}
