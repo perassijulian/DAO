@@ -136,23 +136,17 @@ const CreateProject = () => {
       const proposalId = receiptTx.events[0].args.proposalId.toString();
       proposal["proposalId"] = proposalId;
       const deadline = await governorContract.proposalDeadline(proposalId);
+      await deadline.wait();
       proposal["deadline"] = deadline.toString();
 
-      const res = await fetch('/api/proposalId', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(proposal),
+      await axios.post("/api/proposalId", proposal).catch((axiosError) => {
+        console.log("axios error: ", axiosError);
+        console.log("proposal:", proposal);
       });
-      const data = await res.json();
-      console.log(data);
-
-      // await axios
-      //   .post("/api/proposalId", )
-      //   .catch((axiosError) => console.log("axios error: ", axiosError));
       setIsLoading(false);
-      notificate(`You just made a new proposal with ID: ${shortenId(proposalId)}!`);
+      notificate(
+        `You just made a new proposal with ID: ${shortenId(proposalId)}!`
+      );
 
       setTimeout(() => {
         router.replace("/proposals/vote");

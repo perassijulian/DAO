@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 export default function handler(req, res) {
+  console.log("API init")
   switch (req.method) {
     case "POST":
       console.log("POST/proposalId init");
