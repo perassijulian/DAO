@@ -1,14 +1,20 @@
+import Proposal from "../../../models/proposalModel";
+import connectToMongo from "../../../utils/connectToMongo";
+
 const fs = require("fs");
 
-export default function handler(req, res) {
-  console.log("API init")
+export default async function handler(req, res) {
+  console.log("Connecting to mongo...");
+  await connectToMongo();
+  console.log("Connected to mongo");
   switch (req.method) {
     case "POST":
-      console.log("POST/proposalId init");
-      createProposal();
-      return res.status(201).send("ProposalID saved correctly");
+      const newProposal = new Proposal(req.body);
+      const proposalSaved = await newProposal.save();
+      return res.status(201).send(proposalSaved);
     case "GET":
-      const proposals = getProposals();
+      const proposals = await Proposal.find({})
+      console.log('proposals:', proposals);
       return res.status(200).send(proposals);
     default:
       return res.status(405).end(`Method ${req.method} not allowed`);

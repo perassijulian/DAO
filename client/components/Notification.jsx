@@ -1,7 +1,16 @@
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CloseIcon from "@mui/icons-material/Close";
+import { useEffect } from "react";
 
 const Notification = ({ show, setShow, message }) => {
+  useEffect(() => {
+    if (show) {
+      setTimeout(() => {
+        setShow(false);
+      }, 4000);
+    }
+  }, [show]);
+
   return (
     <div
       className={`bg-white w-72 flex absolute top-0 -right-80 p-3 mt-2 mr-2 gap-3 rounded-2xl shadow-2xl transition-all ease-in-out ${
