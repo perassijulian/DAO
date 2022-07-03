@@ -19,7 +19,7 @@ const Proposals = ({ proposals }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center relative overflow-x-hidden">
       <div className="w-11/12 m-5">
         <h1 className="font-semibold">READY TO EXECUTE</h1>
         {isLoading ? (

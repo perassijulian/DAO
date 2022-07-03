@@ -43,26 +43,24 @@ const Vote = ({ proposals }) => {
     );
 
   return (
-    <div>
-      <div className="m-5">
-        <div>
-          <h1 className="font-semibold">OPEN PROPOSALS</h1>
-          <ProposalsTable
-            proposals={filteredProposals[0].concat(filteredProposals[1])}
-            action="vote"
-          />
-          <div className="text-red-500 text-center w-full mt-2">
-            Remember that you need 20 secs after adding a new proposal and to be
-            able to vote on it.
-          </div>
-          <div className="text-red-500 text-center w-full">
-            Voting time is around 15 mins. After that time - if the proposal is
-            approved - you will be able to queue it.
-          </div>
-          <div className="text-red-500 text-center w-full">
-            Once is queued, after 15 min you will be able to execute it. This
-            means, it will mint the nft to the address provided
-          </div>
+    <div className="flex flex-col items-center relative overflow-x-hidden">
+      <div className="w-11/12 m-5">
+        <h1 className="font-semibold">OPEN PROPOSALS</h1>
+        <ProposalsTable
+          proposals={filteredProposals[0].concat(filteredProposals[1])}
+          action="vote"
+        />
+        <div className="text-red-500 text-center w-full mt-2">
+          Remember that you need 20 secs after adding a new proposal and to be
+          able to vote on it.
+        </div>
+        <div className="text-red-500 text-center w-full">
+          Voting time is around 15 mins. After that time - if the proposal is
+          approved - you will be able to queue it.
+        </div>
+        <div className="text-red-500 text-center w-full">
+          Once is queued, after 15 min you will be able to execute it. This
+          means, it will mint the nft to the address provided
         </div>
       </div>
     </div>

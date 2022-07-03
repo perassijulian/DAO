@@ -13,7 +13,7 @@ const CreateProject = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [fileUrl, setFileUrl] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationContent, setNotificationContent] = useState({});
   const [formInput, setFormInput] = useState({
     name: "",
     description: "",
@@ -22,9 +22,9 @@ const CreateProject = () => {
   });
   const router = useRouter();
 
-  const notificate = (message) => {
+  const notificate = (message, type) => {
     setShowNotification(true);
-    setNotificationMessage(message);
+    setNotificationContent({ message, type });
   };
 
   const handleChange = async (e) => {
@@ -37,7 +37,7 @@ const CreateProject = () => {
       const url = `https://ipfs.io/ipfs/${added.path}`;
       setFileUrl(url);
     } catch (error) {
-      notificate(error.message);
+      notificate(error.message, "error");
     }
     setIsLoading(false);
   };
@@ -53,7 +53,7 @@ const CreateProject = () => {
       const added = await client.add(data);
       return added.path;
     } catch (error) {
-      notificate(error.message);
+      notificate(error.message, "error");
     }
   };
 
@@ -62,28 +62,31 @@ const CreateProject = () => {
     const { name, description, address, amount } = formInput;
     if (!name || name.length < 15) {
       setIsLoading(false);
-      notificate("Please write a title with more than 15 characters");
+      notificate("Please write a title with more than 15 characters", "error");
       return;
     }
     if (!address || address.length !== 42) {
       setIsLoading(false);
-      notificate("Please add a valid address");
+      notificate("Please add a valid address", "error");
       return;
     }
 
     if (!amount || amount < 0) {
       setIsLoading(false);
-      notificate("Please add a valid amount of nfts to mint");
+      notificate("Please add a valid amount of nfts to mint", "error");
       return;
     }
     if (!description || description.length < 100) {
       setIsLoading(false);
-      notificate("Please write a description with more than 100 characters");
+      notificate(
+        "Please write a description with more than 100 characters",
+        "error"
+      );
       return;
     }
     if (!fileUrl) {
       setIsLoading(false);
-      notificate("Please select a file");
+      notificate("Please select a file", "error");
       return;
     }
 
@@ -91,7 +94,8 @@ const CreateProject = () => {
     if (!isMember) {
       setIsLoading(false);
       notificate(
-        "You need to have at least 1 governance token to be able to create a proposal"
+        "You need to have at least 1 governance token to be able to create a proposal",
+        "error"
       );
       return;
     }
@@ -109,7 +113,7 @@ const CreateProject = () => {
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
         setIsLoading(false);
-        notificate("Please change to Rinkeby network");
+        notificate("Please change to Rinkeby network", "error");
         return;
       }
 
@@ -143,29 +147,27 @@ const CreateProject = () => {
         console.log("proposal:", proposal);
       });
       notificate(
-        `You just made a new proposal with ID: ${shortenId(proposalId)}!`
+        `You just made a new proposal with ID: ${shortenId(proposalId)}!`,
+        "success"
       );
       setIsLoading(false);
-
 
       setTimeout(() => {
         router.replace("/proposals/vote");
       }, 3500);
     } catch (error) {
       setIsLoading(false);
-      notificate(error.message);
+      notificate(error.message, "error");
     }
   };
 
   return (
-    <div className="flex flex-col items-center relative overflow-x-hidden">
-      {
-        <Notification
-          show={showNotification}
-          setShow={setShowNotification}
-          message={notificationMessage}
-        />
-      }
+    <div className="flex flex-col items-center">
+      <Notification
+        show={showNotification}
+        setShow={setShowNotification}
+        content={notificationContent}
+      />
       <h1 className="font-bold text-3xl mt-6">CREATE A NEW PROJECT</h1>
       <div className="bg-red-100 w-2/4 flex flex-col items-center mt-4">
         <input type="file" className="mt-4" onChange={handleChange} />

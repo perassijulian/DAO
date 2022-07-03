@@ -3,11 +3,19 @@ import { getContractSigned } from "../utils/getContract";
 import checkIfMember from "../utils/checkIfMember";
 import { useEffect, useState } from "react";
 import contractAddresses from "../constants/contractAddresses.json";
+import Notification from "./Notification";
 
 const GetFreeGovernanceToken = () => {
   const tokenAddress = contractAddresses["4"].governorToken;
   const [isMember, setIsMember] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationContent, setNotificationContent] = useState({});
+
+  const notificate = (message, type) => {
+    setShowNotification(true);
+    setNotificationContent({ message, type });
+  };
 
   const isMemberChecking = async () => {
     setIsMember(await checkIfMember());
@@ -19,13 +27,16 @@ const GetFreeGovernanceToken = () => {
 
   const getDaoToken = async () => {
     setIsLoading(true);
-    alert("You already have DAO tokens");
+    notificate("You already have DAO tokens", "error");
     try {
       const { provider, contract } = await getContractSigned("governorToken");
       const { chainId } = await provider.getNetwork();
       if (chainId !== 4) {
         setIsLoading(false);
-        alert("Please switch to Rinkeby network in your metamask account");
+        notificate(
+          "Please switch to Rinkeby network in your metamask account",
+          "error"
+        );
         return;
       }
 
@@ -48,15 +59,20 @@ const GetFreeGovernanceToken = () => {
       await txETH.wait(1);
 
       setIsMember(true);
-      alert("You got 200DAO tokens and some ETH to pay gas");
+      notificate("You got 200DAO tokens and some ETH to pay gas", "success");
     } catch (mainError) {
-      alert(mainError.message);
+      notificate(mainError.message, "error");
     }
     setIsLoading(false);
   };
 
   return (
     <div className="mt-8 max-w-3xl">
+      <Notification
+        show={showNotification}
+        setShow={setShowNotification}
+        content={notificationContent}
+      />
       <h1 className="text-3xl font-bold">
         This is a testing environment for a DAO
       </h1>

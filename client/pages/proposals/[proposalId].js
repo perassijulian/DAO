@@ -6,7 +6,6 @@ import Proposal from "../../models/proposalModel";
 import shortenId from "../../utils/shortenId";
 
 const ProposalData = ({ data }) => {
-  console.log("LADA TA QUQE LLEGA AL COMPONENTE:", data);
   const [showCalldata, setShowCalldata] = useState(false);
   const [calldataToShow, setCalldataToShow] = useState("");
 
@@ -16,7 +15,6 @@ const ProposalData = ({ data }) => {
       "mint",
       calldata
     );
-    console.log(decodedCalldata);
     setCalldataToShow(
       `ACCOUNT WHERE THE MINT IS GOING ${
         decodedCalldata[0]
@@ -75,7 +73,6 @@ const ProposalData = ({ data }) => {
 export async function getStaticProps({ params }) {
   await connectToMongo();
   const data = await Proposal.find({ proposalId: params.proposalId });
-  console.log("LAdata:", data);
   return {
     props: {
       data: JSON.parse(JSON.stringify(data))[0],
@@ -85,7 +82,6 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const paths = await getAllProposalIds();
-  console.log("paths:", paths);
   return {
     paths,
     fallback: false,

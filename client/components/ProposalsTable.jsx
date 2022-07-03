@@ -5,6 +5,7 @@ import { useState } from "react";
 import checkIfMember from "../utils/checkIfMember";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
+import Notification from "./Notification";
 
 const ProposalsTable = ({ proposals, action }) => {
   return (
@@ -49,13 +50,22 @@ const ProposalsTable = ({ proposals, action }) => {
 
 const VotingButton = ({ proposalId }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationContent, setNotificationContent] = useState({});
+  const notificate = (message, type) => {
+    setShowNotification(true);
+    setNotificationContent({ message, type });
+  };
 
   const castVote = async (voteWay, proposalId) => {
     setIsLoading(true);
     const isMember = await checkIfMember();
     if (!isMember) {
       setIsLoading(false);
-      alert("You need to have at least 1 governance token to be able to vote");
+      notificate(
+        "You need to have at least 1 governance token to be able to vote",
+        "error"
+      );
       return;
     }
     try {
@@ -65,41 +75,56 @@ const VotingButton = ({ proposalId }) => {
       const voted =
         voteWay == 0 ? "DECLINE" : voteWay == 1 ? "APPROVE" : "ABSTAIN on";
       const id = shortenId(proposalId);
-      alert(`You succesfully voted to ${voted} project ${id}`);
+      notificate(`You succesfully voted to ${voted} project ${id}`, "success");
     } catch (mainError) {
       try {
         let e = mainError.message.split("execution reverted: ");
         e = e[1].split('"');
-        alert(e[0]);
+        notificate(e[0], "error");
       } catch (error) {
-        alert(mainError.message);
+        notificate(mainError.message, "error");
       }
     }
     setIsLoading(false);
   };
-  if (isLoading)
-    return (
-      <div className="animate-spin p-2 h-2 w-2 border-b-4 border-red-500 rounded-full"></div>
-    );
+
   return (
     <div className="flex gap-3">
-      <button onClick={() => castVote(1, proposalId)}>✔️</button>
-      <button onClick={() => castVote(0, proposalId)}>❌</button>
-      <button onClick={() => castVote(2, proposalId)}>❓</button>
+      <Notification
+        show={showNotification}
+        setShow={setShowNotification}
+        content={notificationContent}
+      />
+      {isLoading ? (
+        <div className="animate-spin p-2 h-2 w-2 border-b-4 border-red-500 rounded-full"></div>
+      ) : (
+        <>
+          <button onClick={() => castVote(1, proposalId)}>✔️</button>
+          <button onClick={() => castVote(0, proposalId)}>❌</button>
+          <button onClick={() => castVote(2, proposalId)}>❓</button>
+        </>
+      )}
     </div>
   );
 };
 
 const ActionButton = ({ action, proposal }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationContent, setNotificationContent] = useState({});
+  const notificate = (message, type) => {
+    setShowNotification(true);
+    setNotificationContent({ message, type });
+  };
   const router = useRouter();
   const handleAction = async () => {
     setIsLoading(true);
     const isMember = await checkIfMember();
     if (!isMember) {
       setIsLoading(false);
-      alert(
-        "You need to have at least 1 governance token to be able to do this"
+      notificate(
+        "You need to have at least 1 governance token to be able to do this",
+        "error"
       );
       return;
     }
@@ -134,8 +159,9 @@ const ActionButton = ({ action, proposal }) => {
           break;
       }
 
-      alert(
-        `You succesfully ${action} project ${shortenId(proposal.proposalId)}`
+      notificate(
+        `You succesfully ${action} project ${shortenId(proposal.proposalId)}`,
+        "success"
       );
       setTimeout(() => {
         router.reload(window.location.pathname);
@@ -144,28 +170,29 @@ const ActionButton = ({ action, proposal }) => {
       try {
         let e = mainError.message.split("execution reverted: ");
         e = e[1].split('"');
-        alert(e[0]);
+        notificate(e[0], "error");
       } catch (error) {
-        alert(mainError.message);
+        notificate(mainError.message, "error");
       }
     }
     setIsLoading(false);
   };
 
-  if (isLoading)
-    return (
-      <div className="bg-green-600 h-8 w-24 rounded-md flex items-center justify-center">
-        <div className="animate-spin h-2 w-2 p-2 border-b-4 border-white rounded-full"></div>
-      </div>
-    );
-
   return (
-    <button
-      className="bg-green-600 h-8 w-24 text-white font-bold rounded-md"
-      onClick={handleAction}
-    >
-      {action}
-    </button>
+    <div>
+      <Notification
+        show={showNotification}
+        setShow={setShowNotification}
+        content={notificationContent}
+      />
+      <div className="bg-green-600 h-8 w-24 rounded-md text-white font-bold flex items-center justify-center">
+        {isLoading ? (
+          <div className="animate-spin h-2 w-2 p-2 border-b-4 border-white rounded-full"></div>
+        ) : (
+          <button className="w-full h-full" onClick={handleAction}>{action}</button>
+        )}
+      </div>
+    </div>
   );
 };
 
