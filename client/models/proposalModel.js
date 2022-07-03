@@ -11,6 +11,6 @@ const proposalSchema = new Schema(
   }
 );
 
-const Proposal = models.Proposal || model("Proposal", proposalSchema);
+const Proposal = models ? models.Proposal : model("Proposal", proposalSchema);
 
 export default Proposal;

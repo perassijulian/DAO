@@ -40,13 +40,13 @@ const ProposalData = ({ data }) => {
         <div>Calldatas</div>
         <div>
           {data.calldatas.map((calldata) => (
-            <p className="font-bold text-gray-700">{calldata.slice(0, 25)}</p>
+            <p key={`calldata-${shortenId(data.proposalId)}`} className="font-bold text-gray-700">{calldata.slice(0, 25)}</p>
           ))}
         </div>
         <div>Targets</div>
         <div>
           {data.targets.map((target) => (
-            <p className="font-bold text-gray-700">{target.slice(0, 24)}</p>
+            <p key={`target-${shortenId(data.proposalId)}`} className="font-bold text-gray-700">{target.slice(0, 24)}</p>
           ))}
         </div>
       </div>
@@ -70,9 +70,9 @@ const ProposalData = ({ data }) => {
   );
 };
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({query}) {
   await connectToMongo();
-  const data = await Proposal.find({ proposalId: params.proposalId });
+  const data = await Proposal.find({ proposalId: query.proposalId });
   return {
     props: {
       data: JSON.parse(JSON.stringify(data))[0],
@@ -80,12 +80,12 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export async function getStaticPaths() {
-  const paths = await getAllProposalIds();
-  return {
-    paths,
-    fallback: false,
-  };
-}
+// export async function getStaticPaths() {
+//   const paths = await getAllProposalIds();
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 export default ProposalData;

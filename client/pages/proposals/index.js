@@ -66,7 +66,7 @@ const Proposals = ({ proposals }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   await connectToMongo();
   const proposals = await Proposal.find({});
   return {
