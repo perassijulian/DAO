@@ -1,26 +1,36 @@
 import { useEffect, useState } from "react";
 import ProposalsTable from "../../components/ProposalsTable";
-import Proposal from "../../models/proposalModel";
-import connectToMongo from "../../utils/connectToMongo";
 import filterProposals from "../../utils/filterProposals";
+import axios from "axios";
 
-const Vote = ({ proposals }) => {
+const Vote = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [filteredProposals, setFilteredProposals] = useState(null);
+  const [proposals, setProposals] = useState([]);
+  const [filteredProposals, setFilteredProposals] = useState([]);
+
+  const getProposals = async () => {
+    const res = await axios.get("/api/proposalId");
+    setProposals(res.data);
+  };
+
+  const filter = async () => {
+    try {
+      const res = await filterProposals(proposals);
+      setFilteredProposals(res);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const filter = async () => {
-      try {
-        const res = await filterProposals(proposals);
-        setFilteredProposals(res);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    filter();
+    getProposals();
   }, []);
+
+  useEffect(() => {
+      filter();
+  }, [proposals])
+  
 
   if (isLoading)
     return (
@@ -67,14 +77,14 @@ const Vote = ({ proposals }) => {
   );
 };
 
-export async function getServerSideProps() {
-  await connectToMongo();
-  const proposals = await Proposal.find({});
-  return {
-    props: {
-      proposals: JSON.parse(JSON.stringify(proposals)),
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   await connectToMongo();
+//   const proposals = await Proposal.find({});
+//   return {
+//     props: {
+//       proposals: JSON.parse(JSON.stringify(proposals)),
+//     },
+//   };
+// }
 
 export default Vote;

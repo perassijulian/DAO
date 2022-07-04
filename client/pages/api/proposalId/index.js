@@ -2,9 +2,7 @@ import Proposal from "../../../models/proposalModel";
 import connectToMongo from "../../../utils/connectToMongo";
 
 export default async function handler(req, res) {
-  console.log("Connecting to mongo...");
   await connectToMongo();
-  console.log("Connected to mongo");
   switch (req.method) {
     case "POST":
       const newProposal = new Proposal(req.body);

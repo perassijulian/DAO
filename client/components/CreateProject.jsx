@@ -170,7 +170,12 @@ const CreateProject = () => {
       />
       <h1 className="font-bold text-3xl mt-6">CREATE A NEW PROJECT</h1>
       <div className="bg-red-100 w-2/4 flex flex-col items-center mt-4">
-        <input type="file" className="mt-4" onChange={handleChange} />
+        <input
+          value=""
+          type="file"
+          className="mt-4"
+          onChange={handleChange}
+        />
         <div className="w-11/12 mt-4">
           <input
             type="text"
