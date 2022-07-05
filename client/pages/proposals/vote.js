@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProposalsTable from "../../components/ProposalsTable";
 import filterProposals from "../../utils/filterProposals";
 import axios from "axios";
+import Spinner from "../../components/Spinner";
 
 const Vote = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +36,7 @@ const Vote = () => {
   if (isLoading)
     return (
       <div className="flex flex-col items-center">
-        <div className="animate-spin p-3 border-b-4 rounded-full w-3 h-3 border-red-500 mt-8"></div>
+        <Spinner />
       </div>
     );
 

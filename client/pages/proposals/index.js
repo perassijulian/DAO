@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProposalsTable from "../../components/ProposalsTable";
+import Spinner from "../../components/Spinner";
 import filterProposals from "../../utils/filterProposals";
 
 const Proposals = () => {
@@ -37,7 +38,7 @@ const Proposals = () => {
         <h1 className="font-semibold">READY TO EXECUTE</h1>
         {isLoading ? (
           <div className="flex justify-center">
-            <div className="animate-spin p-3 border-b-4 rounded-full w-3 h-3 mt-8 border-red-500 "></div>
+            <Spinner />
           </div>
         ) : (
           <ProposalsTable
@@ -51,7 +52,7 @@ const Proposals = () => {
         <h1 className="font-semibold">READY TO QUEUE</h1>
         {isLoading ? (
           <div className="flex justify-center">
-            <div className="animate-spin p-3 border-b-4 rounded-full w-3 h-3 mt-8 border-red-500 "></div>
+            <Spinner />
           </div>
         ) : (
           <ProposalsTable
@@ -65,7 +66,7 @@ const Proposals = () => {
         <h1 className="font-semibold">ALREADY EXECUTED</h1>
         {isLoading ? (
           <div className="flex justify-center">
-            <div className="animate-spin p-3 border-b-4 rounded-full w-3 h-3 mt-8 border-red-500 "></div>
+            <Spinner />
           </div>
         ) : (
           <ProposalsTable

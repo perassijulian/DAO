@@ -6,6 +6,7 @@ import checkIfMember from "../utils/checkIfMember";
 import { getContractSigned } from "../utils/getContract";
 import shortenId from "../utils/shortenId";
 import Notification from "./Notification";
+import Spinner from "./Spinner";
 
 const ProposalsTable = ({ proposals, action }) => {
   return (
@@ -96,7 +97,7 @@ const VotingButton = ({ proposalId }) => {
         content={notificationContent}
       />
       {isLoading ? (
-        <div className="animate-spin p-2 h-2 w-2 border-b-4 border-red-500 rounded-full"></div>
+        <Spinner />
       ) : (
         <>
           <button onClick={() => castVote(1, proposalId)}>✔️</button>
@@ -187,7 +188,7 @@ const ActionButton = ({ action, proposal }) => {
       />
       <div className="bg-green-600 h-8 w-24 rounded-md text-white font-bold flex items-center justify-center">
         {isLoading ? (
-          <div className="animate-spin h-2 w-2 p-2 border-b-4 border-white rounded-full"></div>
+          <Spinner color="white"/>
         ) : (
           <button className="w-full h-full" onClick={handleAction}>{action}</button>
         )}

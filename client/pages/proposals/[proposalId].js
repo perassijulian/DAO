@@ -3,6 +3,7 @@ import { getContractSigned } from "../../utils/getContract";
 import shortenId from "../../utils/shortenId";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Spinner from "../../components/Spinner";
 
 const ProposalData = () => {
   const [showCalldata, setShowCalldata] = useState(false);
@@ -44,7 +45,7 @@ const ProposalData = () => {
     <div className="flex flex-col items-center">
       <h1 className="font-bold text-3xl mt-6">PROPOSAL DETAILS</h1>
       {isLoading ? (
-        <div>Loading</div>
+        <Spinner />
       ) : (
         <div className="flex flex-col items-center w-full">
           <div className="grid grid-cols-2 bg-red-100 p-3 w-2/4 mt-4 gap-3">

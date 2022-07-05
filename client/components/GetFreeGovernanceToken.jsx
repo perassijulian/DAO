@@ -4,6 +4,7 @@ import checkIfMember from "../utils/checkIfMember";
 import { useEffect, useState } from "react";
 import contractAddresses from "../constants/contractAddresses.json";
 import Notification from "./Notification";
+import Spinner from "./Spinner";
 
 const GetFreeGovernanceToken = () => {
   const tokenAddress = contractAddresses["4"].governorToken;
@@ -96,7 +97,7 @@ const GetFreeGovernanceToken = () => {
             disabled={isLoading || isMember}
           >
             {isLoading ? (
-              <div className="animate-spin p-2 border-b-4 rounded-full w-2 h-2 border-white"></div>
+            <Spinner color="white"/>
             ) : (
               "GIMME TOKENS!"
             )}

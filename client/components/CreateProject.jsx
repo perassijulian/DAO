@@ -6,6 +6,7 @@ import checkIfMember from "../utils/checkIfMember";
 import shortenId from "../utils/shortenId";
 import { getContractSigned } from "../utils/getContract";
 import Notification from "./Notification";
+import Spinner from "./Spinner";
 
 const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
@@ -225,8 +226,8 @@ const CreateProject = () => {
           disabled={isLoading}
         >
           {isLoading ? (
-            <div className="animate-spin p-2 border-b-4 rounded-full w-2 h-2 border-white"></div>
-          ) : (
+            <Spinner color="white"/>
+            ) : (
             "ADD"
           )}
         </button>
