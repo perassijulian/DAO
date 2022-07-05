@@ -39,19 +39,6 @@ const Vote = () => {
       </div>
     );
 
-  if (
-    !isLoading &&
-    filteredProposals[0].concat(filteredProposals[1]).length === 0
-  )
-    return (
-      <div className="flex flex-col items-center">
-        <div className="mt-8 text-xl">
-          There's no proposals open to vote. You can ADD a new project or come
-          back later!
-        </div>
-      </div>
-    );
-
   return (
     <div className="flex flex-col items-center relative overflow-x-hidden">
       <div className="w-11/12 m-5">
@@ -76,15 +63,5 @@ const Vote = () => {
     </div>
   );
 };
-
-// export async function getServerSideProps() {
-//   await connectToMongo();
-//   const proposals = await Proposal.find({});
-//   return {
-//     props: {
-//       proposals: JSON.parse(JSON.stringify(proposals)),
-//     },
-//   };
-// }
 
 export default Vote;

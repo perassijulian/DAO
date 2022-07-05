@@ -1,22 +1,35 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import ProposalsTable from "../../components/ProposalsTable";
 import filterProposals from "../../utils/filterProposals";
-import connectToMongo from "../../utils/connectToMongo";
-import Proposal from "../../models/proposalModel";
 
-const Proposals = ({ proposals }) => {
+const Proposals = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [filteredProposals, setFilteredProposals] = useState(null);
+  const [filteredProposals, setFilteredProposals] = useState([]);
+  const [proposals, setProposals] = useState([])
 
-  useEffect(() => {
-    const filter = async () => {
+  const getProposals = async () => {
+    const res = await axios.get("/api/proposalId");
+    setProposals(res.data);
+  };
+
+  const filter = async () => {
+    try {
       const res = await filterProposals(proposals);
       setFilteredProposals(res);
       setIsLoading(false);
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    filter();
+  useEffect(() => {
+    getProposals();
   }, []);
+
+  useEffect(() => {
+      filter();
+  }, [proposals])
 
   return (
     <div className="flex flex-col items-center relative overflow-x-hidden">
@@ -65,15 +78,5 @@ const Proposals = ({ proposals }) => {
     </div>
   );
 };
-
-export async function getServerSideProps() {
-  await connectToMongo();
-  const proposals = await Proposal.find({});
-  return {
-    props: {
-      proposals: JSON.parse(JSON.stringify(proposals)),
-    },
-  };
-}
 
 export default Proposals;
