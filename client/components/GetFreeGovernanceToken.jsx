@@ -27,7 +27,11 @@ const GetFreeGovernanceToken = () => {
 
   const getDaoToken = async () => {
     setIsLoading(true);
-    notificate("You already have DAO tokens", "error");
+    await checkIfMember();
+    if (isMember) {
+      notificate("You already have DAO tokens", "error");
+      return;
+    }
     try {
       const { provider, contract } = await getContractSigned("governorToken");
       const { chainId } = await provider.getNetwork();
@@ -85,7 +89,7 @@ const GetFreeGovernanceToken = () => {
         can get some FREE here
       </p>
       {!isMember ? (
-        <div className="mt-5 flex w-full justify-around">
+        <div className="mt-5 flex flex-col items-center w-full">
           <button
             className="w-40 h-10 bg-green-500 rounded-md text-white font-bold flex justify-center items-center"
             onClick={getDaoToken}
@@ -97,6 +101,9 @@ const GetFreeGovernanceToken = () => {
               "GIMME TOKENS!"
             )}
           </button>
+          {isLoading && (
+            <div>You're getting tokens. This may take some seconds</div>
+          )}
         </div>
       ) : (
         <p className="mt-3 text-xl text-center bg-green-400">
